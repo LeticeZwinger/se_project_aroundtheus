@@ -1,0 +1,15 @@
+.header__logo {
+  margin-top: 28px;
+  margin-bottom: 40px;
+}
+
+.header {
+  background: transparent url(../images/Line.svg) bottom no-repeat;
+}
+
+@media screen and (max-width: 480px) {
+  .header {
+    padding-left: 19px;
+    padding-right: 19px;
+  }
+}
