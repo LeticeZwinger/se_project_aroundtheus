@@ -2,14 +2,14 @@
   font-size: 18px;
   font-weight: 400;
   line-height: 22px;
-  margin-top: 0;
-  margin-bottom: 60px;
-  margin-top: 67px;
+  margin: 67px auto 60px 0;
   color: #545454;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 619px) {
   .footer__copyright {
+    font-size: 14px;
+    line-height: 17px;
     padding-left: 19px;
     padding-right: 19px;
     padding-bottom: 36px;

@@ -50,16 +50,15 @@
   padding: 0;
   margin: 0;
   transition: opacity 0.2s linear;
+  cursor: pointer;
 }
 
 .card__like-button:hover {
   opacity: 0.5;
-  cursor: pointer;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 619x) {
   .card__list {
-    margin: 0;
     width: 100%;
   }
 }
