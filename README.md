@@ -1,6 +1,10 @@
 # Project 3: Around The U.S.
 
-https://github.com/LeticeZwinger/se_project_aroundtheus
+https://leticezwinger.github.io/se_project_aroundtheus/
+
+# Overview:
+
+https://youtu.be/CKeBrD3_7iM
 
 This is the project #3 of Triple10 web dev program. In this project we practice:
 
@@ -14,4 +18,3 @@ This is the project #3 of Triple10 web dev program. In this project we practice:
   (https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)
 
 ![desktop-view](/images/desktop-view.png)
-![mobile-view](/images/mobile-overviw.png)
