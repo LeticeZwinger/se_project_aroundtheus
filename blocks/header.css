@@ -1,16 +1,15 @@
-header {
-  border-bottom: 1px solid #545454;
-  margin-top: 32px;
+.header__line {
+  border-bottom: 1px solid;
+  color: rgba(84, 84, 84, 0.7);
 }
 .header__logo {
   margin: 45px auto 41px 0px;
 }
 
 @media screen and (max-width: 659px) {
-  .header {
+  .header__line {
     display: flex;
     justify-content: center;
-    margin-top: 84px;
     max-width: unset;
   }
   .header__logo {
@@ -18,9 +17,5 @@ header {
     width: 126px;
     margin: 28px auto 32px 27px;
     position: relative;
-  }
-
-  .page__section {
-    margin: 0;
   }
 }

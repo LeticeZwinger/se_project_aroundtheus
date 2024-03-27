@@ -29,7 +29,7 @@
 }
 
 @media screen and (max-width: 659px) {
-  .page__logo {
-    margin-top: 28px;
+  .page__section {
+    margin: 0;
   }
 }
