@@ -6,7 +6,7 @@
   color: #545454;
 }
 
-@media screen and (max-width: 619px) {
+@media screen and (max-width: 659px) {
   .footer__copyright {
     font-size: 14px;
     line-height: 17px;
@@ -14,5 +14,10 @@
     padding-right: 19px;
     padding-bottom: 36px;
     margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  .footer {
+    margin: 0 0 0 0;
   }
 }

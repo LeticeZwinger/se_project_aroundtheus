@@ -11,6 +11,7 @@
   position: relative;
   margin: 0 auto;
   box-sizing: border-box;
+  justify-content: center;
 }
 
 .page__content {
@@ -21,14 +22,14 @@
   padding: 0;
 }
 
-@media screen and (max-width: 619px) {
-  .page__logo {
-    margin-top: 28px;
-  }
-}
-
 @media screen and (max-width: 1100px) {
   .page__section {
     max-width: calc(100% - 40px);
+  }
+}
+
+@media screen and (max-width: 659px) {
+  .page__logo {
+    margin-top: 28px;
   }
 }

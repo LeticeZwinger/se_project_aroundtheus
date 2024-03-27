@@ -3,13 +3,28 @@
   grid-template-columns: minmax(auto, 375px) auto;
 }
 
+.cards__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 282px);
+  justify-content: center;
+  gap: 20px 18px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
 @media screen and (max-width: 881px) {
   .cards {
     padding: 20px;
   }
 }
-@media screen and (max-width: 619px) {
+@media screen and (max-width: 662px) {
   .cards {
     padding: 15px 19px 48px;
+    margin: auto;
+  }
+  .cards__list {
+    width: 100%;
   }
 }

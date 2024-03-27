@@ -1,20 +1,26 @@
+header {
+  border-bottom: 1px solid #545454;
+  margin-top: 32px;
+}
 .header__logo {
-  margin: 45px auto 41px 0;
+  margin: 45px auto 41px 0px;
 }
 
-.header__line {
-  background: transparent url(../images/Line.svg) center no-repeat;
-  height: 2px;
-}
-
-@media screen and (max-width: 619px) {
+@media screen and (max-width: 659px) {
+  .header {
+    display: flex;
+    justify-content: center;
+    margin-top: 84px;
+    max-width: unset;
+  }
   .header__logo {
     height: 24px;
     width: 126px;
-    margin: 28px auto 0 27px;
+    margin: 28px auto 32px 27px;
+    position: relative;
   }
 
-  .header__line {
-    margin-top: 32px;
+  .page__section {
+    margin: 0;
   }
 }
