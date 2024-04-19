@@ -87,3 +87,11 @@
 .modal__button:hover {
   opacity: 0.8;
 }
+
+.modal__closed {
+  display: none;
+}
+
+.modal__opened {
+  display: flex;
+}
