@@ -24,10 +24,11 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
-
+// --------- THIS WORKS ------>
 const profileEditButton = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const editCloseButton = document.querySelector("#modal-close-button");
+
 profileEditButton.addEventListener("click", () => {
   profileEditModal.classList.remove("modal__closed");
   editCloseButton.classList.remove("modal__closed");
@@ -41,3 +42,43 @@ editCloseButton.addEventListener("click", () => {
   profileEditModal.classList.add("modal__closed");
   editCloseButton.classList.add("modal__closed");
 });
+
+// -------- THIS DOES NOT WORK ---->
+
+// const profileEditButton = document.querySelector("#profile-edit-button");
+// const profileEditModal = document.querySelector("#profile-edit-modal");
+// const editCloseButton = profileEditModal.querySelector(".modal__closed");
+
+// profileEditButton.addEventListener("click", () => {
+//   profileEditModal.classList.add("modal__opened");
+// });
+// editCloseButton.addEventListener.add("click", () => {
+//   profileEditModal.classList.remove("modal__opened");
+// });
+
+// ---------PROJECT 4 FINAL STAGE------WORKING ON IT, IGNORE --------
+
+// const profileEditButton = document.querySelector("#profile-edit-button");
+// const profileEditModal = document.querySelector("#profile-edit-modal");
+// const editCloseButton = document.querySelector("#modal-close-button");
+// const profileTitle = document.querySelector("#profile-title");
+// const profileDescription = document.querySelector("#profile-description");
+// const modalTitleInput = document.querySelector("#modal-input-title");
+// const modalDescriptionInput = document.querySelector(
+//   "#modal-input-description",
+// );
+
+// profileEditButton.addEventListener("click", () => {
+//   profileEditModal.classList.remove("modal__closed");
+//   editCloseButton.classList.remove("modal__closed");
+//   profileEditModal.classList.add("modal__opened");
+//   editCloseButton.classList.add("modal__opened");
+// });
+// console.log(profileDescription.textContent);
+
+// editCloseButton.addEventListener("click", () => {
+//   profileEditModal.classList.remove("modal__opened");
+//   editCloseButton.classList.remove("modal__opened");
+//   profileEditModal.classList.add("modal__closed");
+//   editCloseButton.classList.add("modal__closed");
+// });

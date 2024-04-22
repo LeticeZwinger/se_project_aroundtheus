@@ -24,14 +24,16 @@
         <section class="profile page__section">
           <img src="./images/Avatar.png" alt="avatar" class="profile__image" />
           <div class="profile__info">
-            <h1 class="profile__title">Jacques Cousteau</h1>
+            <h1 class="profile__title" id="profile-title">Jacques Cousteau</h1>
             <button
               aria-label="edit"
               class="profile__edit-button"
               id="profile-edit-button"
               type="button"
             ></button>
-            <p class="profile__description">Explorer</p>
+            <p class="profile__description" id="profile-description">
+              Explorer
+            </p>
           </div>
           <button
             aria-label="add"
@@ -144,15 +146,17 @@
           <form class="modal__form">
             <input
               class="modal__input-title"
+              id="modal-input-title"
               type="text"
               name="title"
-              placeholder="Jacques Cousteau"
+              placeholder="Name"
             />
             <input
               class="modal__input-description"
+              id="modal-input-description"
               type="text"
-              name="explorer"
-              placeholder="Explorer"
+              name="description"
+              placeholder="Description"
             />
             <button class="modal__button" name="save">save</button>
           </form>
