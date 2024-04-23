@@ -7,12 +7,16 @@
   padding: 19px;
   display: flex;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
+  z-index: 100;
   border: 0;
 }
 
 .modal__fieldset {
-  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
   padding: 36px;
   background-color: #fff;
   margin: auto;
@@ -93,5 +97,38 @@
 }
 
 .modal__opened {
-  display: flex;
+  display: block;
+}
+
+@media screen and (max-width: 662px) {
+  .modal__fieldset {
+    width: 120px;
+    height: 282px;
+    background-color: #fff;
+    margin-top: 127px;
+    padding: 25px 22px;
+  }
+
+  .modal__button {
+    width: 238px;
+    height: 46px;
+  }
+  .modal__title {
+    font-size: 18px;
+  }
+  .modal__input-title {
+    width: 238px;
+    height: 27px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+  .modal__input-description {
+    width: 238px;
+    height: 27px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+  .modal__close-button {
+    left: calc(100% - 35px);
+  }
 }
