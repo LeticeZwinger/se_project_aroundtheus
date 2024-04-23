@@ -92,7 +92,7 @@
   opacity: 0.8;
 }
 
-.modal--closed {
+.modal_closed {
   display: none;
 }
 
