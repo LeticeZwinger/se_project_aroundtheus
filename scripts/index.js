@@ -25,11 +25,14 @@ const initialCards = [
   },
 ];
 
-// DOM Elements
 const profileEditButton = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
+const addImageModal = document.querySelector("#add-image-modal");
 const profileModalCloseButton = profileEditModal.querySelector(
   "#modal-close-button",
+);
+const addImageCloseButton = addImageModal.querySelector(
+  "#add-image-close-button",
 );
 const profileTitle = document.querySelector("#profile-title");
 const profileDescription = document.querySelector("#profile-description");
@@ -37,7 +40,7 @@ const profileTitleInput = document.querySelector("#modal-input-title");
 const profileDescriptionInput = document.querySelector(
   "#modal-input-description",
 );
-const addNewImageButton = document.querySelector(".profile__add-button");
+const addNewImageButton = document.querySelector("#profile-add-button");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
 const cardListEl = document.querySelector(".cards__list");
 const cardTemplate =
@@ -49,11 +52,6 @@ function openModal(modal) {
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
-}
-
-function updateProfileFromInputs() {
-  profileTitle.textContent = profileTitleInput.value;
-  profileDescription.textContent = profileDescriptionInput.value;
 }
 
 function getCardElement(cardData) {
@@ -68,17 +66,23 @@ function getCardElement(cardData) {
   return cardElement;
 }
 
-profileEditButton.addEventListener("click", () => openModal(profileEditModal));
+profileEditButton.addEventListener("click", () => {
+  profileTitle.textContent = profileTitleInput.value;
+  profileDescription.textContent = profileDescriptionInput.value;
+  openModal(profileEditModal);
+});
+
 profileModalCloseButton.addEventListener("click", () =>
   closeModal(profileEditModal),
 );
+
+addNewImageButton.addEventListener("click", () => openModal(addImageModal));
+addImageCloseButton.addEventListener("click", () => closeModal(addImageModal));
+
 profileEditForm.addEventListener("submit", (event) => {
   event.preventDefault();
   updateProfileFromInputs();
   closeModal(profileEditModal);
-});
-addNewImageButton.addEventListener("click", () => {
-  // Define what happens when the add button is clicked
 });
 
 initialCards.forEach((cardData) => {

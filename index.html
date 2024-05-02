@@ -36,6 +36,7 @@
             </p>
           </div>
           <button
+            id="profile-add-button"
             aria-label="add"
             class="profile__add-button"
             type="button"
@@ -75,7 +76,10 @@
       <!--  -->
       <div class="modal modal_closed" id="add-image-modal">
         <fieldset class="modal__fieldset">
-          <button class="modal__close-button" id="modal-close-button"></button>
+          <button
+            class="modal__close-button"
+            id="add-image-close-button"
+          ></button>
           <p class="modal__title">New Place</p>
           <form class="modal__form">
             <input
@@ -92,7 +96,7 @@
               name="link"
               placeholder="Image link"
             />
-            <button class="modal__button" name="save">Create</button>
+            <button class="modal__button" name="create">Create</button>
           </form>
         </fieldset>
       </div>
