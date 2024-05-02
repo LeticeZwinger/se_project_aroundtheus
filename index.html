@@ -48,7 +48,7 @@
       <footer class="footer page__section">
         <p class="footer__copyright">&#169;2024 Around the U.S.</p>
       </footer>
-
+      <!--  -->
       <div class="modal modal_closed" id="profile-edit-modal">
         <fieldset class="modal__fieldset">
           <button class="modal__close-button" id="modal-close-button"></button>
@@ -68,10 +68,35 @@
               name="description"
               placeholder="Description"
             />
-            <button class="modal__button" name="save">save</button>
+            <button class="modal__button" name="save">Save</button>
           </form>
         </fieldset>
       </div>
+      <!--  -->
+      <div class="modal modal_closed" id="add-image-modal">
+        <fieldset class="modal__fieldset">
+          <button class="modal__close-button" id="modal-close-button"></button>
+          <p class="modal__title">New Place</p>
+          <form class="modal__form">
+            <input
+              class="modal__form-input"
+              id="modal-input-title"
+              type="text"
+              name="title"
+              placeholder="Title"
+            />
+            <input
+              class="modal__form-input"
+              id="modal-input-description"
+              type="text"
+              name="link"
+              placeholder="Image link"
+            />
+            <button class="modal__button" name="save">Create</button>
+          </form>
+        </fieldset>
+      </div>
+      <!--  -->
     </div>
     <template id="card-template">
       <li class="card">
