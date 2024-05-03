@@ -4,6 +4,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .card__title {
@@ -43,7 +44,7 @@
   cursor: pointer;
 }
 .card__like-button-active {
-  background: #000 url(../images/like-button.svg) center no-repeat;
+  background: transparent url(../images/like-button-active.svg) center no-repeat;
 }
 
 .card__like-button:hover {
