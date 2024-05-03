@@ -40,6 +40,8 @@ const profileTitleInput = document.querySelector("#modal-input-title");
 const profileDescriptionInput = document.querySelector(
   "#modal-input-description",
 );
+const imageTitleInput = document.querySelector("#modal-image-title");
+const imageLinkInput = document.querySelector("#modal-image-link");
 const addNewImageButton = document.querySelector("#profile-add-button");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
 const cardListEl = document.querySelector(".cards__list");
@@ -54,28 +56,42 @@ function closeModal(modal) {
   modal.classList.remove("modal_opened");
 }
 
+function updateProfileFromInputs() {
+  profileTitle.textContent = profileTitleInput.value;
+  profileDescription.textContent = profileDescriptionInput.value;
+}
+
 function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardTitleEl = cardElement.querySelector(".card__title");
+  const likeButton = cardElement.querySelector(".card__like-button");
+  const deleteButton = cardElement.querySelector(".card__delete-button");
+
+  likeButton.addEventListener("click", () => {
+    likeButton.classList.toggle("card__like-button");
+  });
 
   cardTitleEl.textContent = cardData.name;
   cardImageEl.src = cardData.link;
   cardImageEl.alt = cardData.name;
 
+  deleteButton.addEventListener("click", () => {
+    cardElement.remove();
+  });
+
   return cardElement;
 }
 
-profileEditButton.addEventListener("click", () => {
-  profileTitle.textContent = profileTitleInput.value;
-  profileDescription.textContent = profileDescriptionInput.value;
-  openModal(profileEditModal);
-});
+function renderCard(cardData, container) {
+  const cardElement = getCardElement(cardData);
+  container.prepend(cardElement);
+}
 
+profileEditButton.addEventListener("click", () => openModal(profileEditModal));
 profileModalCloseButton.addEventListener("click", () =>
   closeModal(profileEditModal),
 );
-
 addNewImageButton.addEventListener("click", () => openModal(addImageModal));
 addImageCloseButton.addEventListener("click", () => closeModal(addImageModal));
 
@@ -86,6 +102,10 @@ profileEditForm.addEventListener("submit", (event) => {
 });
 
 initialCards.forEach((cardData) => {
-  const cardElement = getCardElement(cardData);
-  cardListEl.append(cardElement);
+  renderCard(cardData, cardListEl);
 });
+
+// ===============
+// add click listener event to cardImageEl
+// openModal with previewImageModal
+// =======================

@@ -42,7 +42,23 @@
   transition: opacity 0.2s linear;
   cursor: pointer;
 }
+.card__like-button-active {
+  background: #000 url(../images/like-button.svg) center no-repeat;
+}
 
 .card__like-button:hover {
   opacity: 0.5;
+}
+
+.card__delete-button {
+  background: url(../images/Trash.svg) repeat;
+  position: absolute;
+  width: 18px;
+  height: 19px;
+  top: 18px;
+  right: 15px;
+  bottom: 244px;
+  left: 249px;
+  border: none;
+  cursor: pointer;
 }
