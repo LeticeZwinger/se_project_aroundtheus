@@ -93,8 +93,16 @@
   display: block;
 }
 
-.modal__preview-image {
-  cursor: pointer;
+.modal__image {
+  max-width: 100%;
+  max-height: 100vh;
+  object-fit: cover;
+}
+
+.modal__description {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 1rem;
 }
 
 @media screen and (max-width: 662px) {
