@@ -92,17 +92,25 @@
 .modal_opened {
   display: block;
 }
-
-.modal__image {
-  max-width: 100%;
-  max-height: 100vh;
-  object-fit: cover;
+.modal__preview {
+  position: fixed;
+  justify-content: center;
+  flex-direction: column;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.modal__preview-image {
+  max-width: 75vw;
+  max-height: 75vh;
 }
 
-.modal__description {
-  text-align: center;
-  font-size: 1.2rem;
-  margin-top: 1rem;
+.modal__preview-description {
+  text-align: start;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
+  margin-top: 10px;
 }
 
 @media screen and (max-width: 662px) {

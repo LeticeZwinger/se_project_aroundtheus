@@ -47,9 +47,9 @@ const profileEditForm = profileEditModal.querySelector(".modal__form");
 const cardListEl = document.querySelector(".cards__list");
 const addImageForm = document.querySelector("#add-image-modal .modal__form");
 const previewImageModal = document.querySelector("#image-preview-modal");
-const previewImage = previewImageModal.querySelector(".modal__image");
+const previewImage = previewImageModal.querySelector(".modal__preview-image");
 const previewDescription = previewImageModal.querySelector(
-  ".modal__description",
+  ".modal__preview-description",
 );
 const closePreviewImageButton = document.querySelector(
   "#image-preview-close-button",
