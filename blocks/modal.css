@@ -9,6 +9,11 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 100;
   border: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    visibility 0s,
+    opacity 0.3s linear;
 }
 
 .modal__fieldset {
@@ -26,6 +31,14 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+
+.modal_opened {
+  visibility: visible;
+  opacity: 1;
+  transition:
+    visibility 0s,
+    opacity 0.3s linear;
 }
 
 .modal__close-button {
@@ -85,13 +98,6 @@
   opacity: 0.8;
 }
 
-.modal_closed {
-  display: none;
-}
-
-.modal_opened {
-  display: block;
-}
 .modal__preview {
   position: fixed;
   justify-content: center;
@@ -100,6 +106,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 .modal__preview-image {
   max-width: 75vw;
   max-height: 75vh;

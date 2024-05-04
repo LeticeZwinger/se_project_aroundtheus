@@ -50,7 +50,7 @@
         <p class="footer__copyright">&#169;2024 Around the U.S.</p>
       </footer>
       <!--  -->
-      <div class="modal modal_closed" id="profile-edit-modal">
+      <div class="modal" id="profile-edit-modal">
         <fieldset class="modal__fieldset">
           <button class="modal__close-button" id="modal-close-button"></button>
           <p class="modal__title">Edit profile</p>
@@ -74,7 +74,7 @@
         </fieldset>
       </div>
       <!--  -->
-      <div class="modal modal_closed" id="add-image-modal">
+      <div class="modal" id="add-image-modal">
         <fieldset class="modal__fieldset">
           <button
             class="modal__close-button"
@@ -100,7 +100,7 @@
           </form>
         </fieldset>
       </div>
-      <div class="modal modal_closed" id="image-preview-modal">
+      <div class="modal" id="image-preview-modal">
         <div class="modal__content modal__preview">
           <button
             class="modal__close-button"
@@ -110,9 +110,8 @@
           <p class="modal__preview-description"></p>
         </div>
       </div>
-      <!--  -->
     </div>
-    <template id="card-template">
+    <template class="card__template" id="card-template">
       <li class="card">
         <img src="" alt="" class="card__image" />
         <div class="card__description">
