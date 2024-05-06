@@ -71,6 +71,13 @@ function updateProfileFromInputs() {
   profileDescription.textContent = profileDescriptionInput.value;
 }
 
+function clearInputFields() {
+  profileTitleInput.value = "";
+  profileDescriptionInput.value = "";
+  imageTitleInput.value = "";
+  imageLinkInput.value = "";
+}
+
 function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImageEl = cardElement.querySelector(".card__image");
@@ -114,6 +121,13 @@ addImageForm.addEventListener("submit", function (event) {
   const newCardData = { name: title, link: link };
   renderCard(newCardData, cardListEl);
   closeModal(addImageModal);
+  clearInputFields();
+});
+
+profileEditButton.addEventListener("click", () => {
+  profileTitleInput.value = userProfileData.title;
+  profileDescriptionInput.value = userProfileData.description;
+  openModal(profileEditModal);
 });
 
 profileEditButton.addEventListener("click", () => openModal(profileEditModal));
@@ -127,6 +141,7 @@ profileEditForm.addEventListener("submit", (event) => {
   event.preventDefault();
   updateProfileFromInputs();
   closeModal(profileEditModal);
+  clearInputFields();
 });
 
 initialCards.forEach((cardData) => {
