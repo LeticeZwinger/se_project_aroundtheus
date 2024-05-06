@@ -72,8 +72,6 @@ function updateProfileFromInputs() {
 }
 
 function clearInputFields() {
-  profileTitleInput.value = "";
-  profileDescriptionInput.value = "";
   imageTitleInput.value = "";
   imageLinkInput.value = "";
 }
@@ -125,8 +123,9 @@ addImageForm.addEventListener("submit", function (event) {
 });
 
 profileEditButton.addEventListener("click", () => {
-  profileTitleInput.value = userProfileData.title;
-  profileDescriptionInput.value = userProfileData.description;
+  profileTitleInput.value = profileTitle.textContent;
+  profileDescriptionInput.value = profileDescription.textContent;
+
   openModal(profileEditModal);
 });
 
@@ -147,8 +146,3 @@ profileEditForm.addEventListener("submit", (event) => {
 initialCards.forEach((cardData) => {
   renderCard(cardData, cardListEl);
 });
-
-// =======================
-// add click listener event to cardImageEl
-// openModal with previewImageModal
-// =======================
