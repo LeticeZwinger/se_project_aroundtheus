@@ -71,11 +71,6 @@ function updateProfileFromInputs() {
   profileDescription.textContent = profileDescriptionInput.value;
 }
 
-function clearInputFields() {
-  imageTitleInput.value = "";
-  imageLinkInput.value = "";
-}
-
 function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImageEl = cardElement.querySelector(".card__image");
@@ -114,22 +109,21 @@ function renderCard(cardData, container) {
 }
 addImageForm.addEventListener("submit", function (event) {
   event.preventDefault();
-  const title = document.querySelector("#modal-image-title").value;
-  const link = document.querySelector("#modal-image-link").value;
+  const title = imageTitleInput.value;
+  const link = imageLinkInput.value;
   const newCardData = { name: title, link: link };
   renderCard(newCardData, cardListEl);
   closeModal(addImageModal);
-  clearInputFields();
+
+  event.target.reset();
 });
 
 profileEditButton.addEventListener("click", () => {
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
-
   openModal(profileEditModal);
 });
 
-profileEditButton.addEventListener("click", () => openModal(profileEditModal));
 profileModalCloseButton.addEventListener("click", () =>
   closeModal(profileEditModal),
 );
@@ -140,7 +134,6 @@ profileEditForm.addEventListener("submit", (event) => {
   event.preventDefault();
   updateProfileFromInputs();
   closeModal(profileEditModal);
-  clearInputFields();
 });
 
 initialCards.forEach((cardData) => {
