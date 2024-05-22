@@ -120,6 +120,22 @@
   margin-top: 10px;
 }
 
+.modal__error {
+  display: flex;
+  font-size: 12px;
+  line-height: 15px;
+  color: red;
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  transition: opacity 0.3s;
+  border-bottom: 1px solid rgba(255, 0, 0, 0.5);
+}
+
+.modal__button_disabled {
+  opacity: 0.5;
+}
+
 @media screen and (max-width: 662px) {
   .modal__fieldset {
     width: 120px;
