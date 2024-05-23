@@ -52,10 +52,7 @@
       <!-- name and description -->
       <div class="modal" id="profile-edit-modal">
         <fieldset class="modal__fieldset">
-          <button
-            class="modal__close-button modal__button_disabled"
-            id="modal-close-button"
-          ></button>
+          <button class="modal__close-button" id="modal-close-button"></button>
           <p class="modal__title">Edit profile</p>
           <form class="modal__form" name="modal-form">
             <input
@@ -114,10 +111,8 @@
               id="modal-image-link"
               type="url"
               name="link"
-              placeholder="Image Link"
+              placeholder="Image URL"
               required
-              minlength="2"
-              maxlength="200"
             />
             <span class="modal__error" id="modal-image-link-error"></span>
             <button class="modal__button modal__button_disabled" name="create">
@@ -156,6 +151,6 @@
       </li>
     </template>
     <script src="./scripts/index.js"></script>
-    <script src="./validation.js"></script>
+    <script src="./validate.js"></script>
   </body>
 </html>

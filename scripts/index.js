@@ -65,6 +65,24 @@ function openModal(modal) {
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
 }
+function modalCloseOnOverlay() {
+  document.querySelectorAll(".modal").forEach((modal) => {
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        closeModal(modal);
+      }
+    });
+  });
+}
+function ModalCloseOnEsc() {
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      document.querySelectorAll(".modal.modal_opened").forEach((modal) => {
+        closeModal(modal);
+      });
+    }
+  });
+}
 
 function updateProfileFromInputs() {
   profileTitle.textContent = profileTitleInput.value;
@@ -138,4 +156,6 @@ profileEditForm.addEventListener("submit", (event) => {
 
 initialCards.forEach((cardData) => {
   renderCard(cardData, cardListEl);
+  modalCloseOnOverlay();
+  ModalCloseOnEsc();
 });
