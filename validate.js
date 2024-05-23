@@ -1,6 +1,3 @@
-// enabling validation by calling enableValidation()
-// pass all the settings on call
-
 function showInputError(formEl, inputEl, { inputErrorClass, errorClass }) {
   const errorMsgElement = formEl.querySelector(`#${inputEl.id}-error`);
   inputEl.classList.add(inputErrorClass);
@@ -44,11 +41,22 @@ function setEventListeners(formEl, options) {
   const { inputSelector } = options;
   const inputElements = [...formEl.querySelectorAll(inputSelector)];
   const submitButton = formEl.querySelector(".modal__button");
+  const profileOpener = document.querySelector("#profile-edit-button");
+  const imagePostOpener = document.querySelector("#profile-add-button");
   inputElements.forEach((inputEl) => {
+    console.log(inputEl);
     inputEl.addEventListener("input", (event) => {
       checkInputValidity(formEl, inputEl, options);
       toggleButtonState(inputElements, submitButton, options);
     });
+  });
+  profileOpener.addEventListener("click", (event) => {
+    console.log("adding click listeners");
+    toggleButtonState(inputElements, submitButton, options);
+  });
+  imagePostOpener.addEventListener("click", (event) => {
+    console.log("adding click listeners");
+    toggleButtonState(inputElements, submitButton, options);
   });
 }
 
