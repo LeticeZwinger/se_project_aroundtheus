@@ -51,21 +51,22 @@ const previewImage = previewImageModal.querySelector(".modal__preview-image");
 const previewDescription = previewImageModal.querySelector(
   ".modal__preview-description",
 );
-const closePreviewImageButton = document.querySelector(
-  "#image-preview-close-button",
-);
 
+const modals = document.querySelectorAll(".modal");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", handleEscKey);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", handleEscKey);
 }
-function modalCloseOnOverlay() {
+
+function closeModalOnOverlay() {
   document.querySelectorAll(".modal").forEach((modal) => {
     modal.addEventListener("click", (event) => {
       if (event.target === modal) {
@@ -74,14 +75,10 @@ function modalCloseOnOverlay() {
     });
   });
 }
-function ModalCloseOnEsc() {
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      document.querySelectorAll(".modal.modal_opened").forEach((modal) => {
-        closeModal(modal);
-      });
-    }
-  });
+function handleEscKey(event) {
+  if (event.key === "Escape") {
+    document.querySelectorAll(".modal.modal_opened").forEach(closeModal);
+  }
 }
 
 function updateProfileFromInputs() {
@@ -117,9 +114,17 @@ function getCardElement(cardData) {
 
   return cardElement;
 }
-closePreviewImageButton.addEventListener("click", () =>
-  closeModal(previewImageModal),
-);
+
+modals.forEach((modal) => {
+  modal.addEventListener("mousedown", (event) => {
+    if (
+      event.target === modal ||
+      event.target.classList.contains("modal__close-button")
+    ) {
+      closeModal(modal);
+    }
+  });
+});
 
 function renderCard(cardData, container) {
   const cardElement = getCardElement(cardData);
@@ -156,6 +161,4 @@ profileEditForm.addEventListener("submit", (event) => {
 
 initialCards.forEach((cardData) => {
   renderCard(cardData, cardListEl);
-  modalCloseOnOverlay();
-  ModalCloseOnEsc();
 });

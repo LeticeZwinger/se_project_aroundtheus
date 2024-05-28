@@ -25,9 +25,10 @@ function hasInvalidInput(inputList) {
 
 function toggleButtonState(
   inputElements,
-  submitButton,
+  submitButtonSelector,
   { inactiveButtonClass },
 ) {
+  const submitButton = document.querySelector(submitButtonSelector);
   if (hasInvalidInput(inputElements)) {
     submitButton.classList.add(inactiveButtonClass);
     submitButton.disabled = true;
@@ -40,23 +41,13 @@ function toggleButtonState(
 function setEventListeners(formEl, options) {
   const { inputSelector } = options;
   const inputElements = [...formEl.querySelectorAll(inputSelector)];
-  const submitButton = formEl.querySelector(".modal__button");
-  const profileOpener = document.querySelector("#profile-edit-button");
-  const imagePostOpener = document.querySelector("#profile-add-button");
+  const { submitButtonSelector } = options;
   inputElements.forEach((inputEl) => {
     console.log(inputEl);
     inputEl.addEventListener("input", (event) => {
       checkInputValidity(formEl, inputEl, options);
-      toggleButtonState(inputElements, submitButton, options);
+      toggleButtonState(inputElements, submitButtonSelector, options);
     });
-  });
-  profileOpener.addEventListener("click", (event) => {
-    console.log("adding click listeners");
-    toggleButtonState(inputElements, submitButton, options);
-  });
-  imagePostOpener.addEventListener("click", (event) => {
-    console.log("adding click listeners");
-    toggleButtonState(inputElements, submitButton, options);
   });
 }
 
