@@ -19,17 +19,19 @@ function checkInputValidity(formEl, inputEl, options) {
   hideInputError(formEl, inputEl, options);
 }
 
-function hasInvalidInput(inputList) {
-  return !inputList.every((inputEl) => inputEl.validity.valid);
+function hasInvalidInput(inputEl) {
+  return !inputEl.validity.valid;
 }
 
 function toggleButtonState(
-  inputElements,
-  submitButtonSelector,
-  { inactiveButtonClass },
+  formEl,
+  { inactiveButtonClass, submitButtonSelector },
 ) {
-  const submitButton = document.querySelector(submitButtonSelector);
-  if (hasInvalidInput(inputElements)) {
+  const submitButton = formEl.querySelector(submitButtonSelector);
+  const isInvalid = [...formEl.querySelectorAll("input")].some(
+    (inputEl) => !inputEl.validity.valid,
+  );
+  if (isInvalid) {
     submitButton.classList.add(inactiveButtonClass);
     submitButton.disabled = true;
   } else {
@@ -41,12 +43,11 @@ function toggleButtonState(
 function setEventListeners(formEl, options) {
   const { inputSelector } = options;
   const inputElements = [...formEl.querySelectorAll(inputSelector)];
-  const { submitButtonSelector } = options;
+
   inputElements.forEach((inputEl) => {
-    console.log(inputEl);
     inputEl.addEventListener("input", (event) => {
       checkInputValidity(formEl, inputEl, options);
-      toggleButtonState(inputElements, submitButtonSelector, options);
+      toggleButtonState(formEl, options);
     });
   });
 }
