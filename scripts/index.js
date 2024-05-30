@@ -147,11 +147,7 @@ profileEditButton.addEventListener("click", () => {
   openModal(profileEditModal);
 });
 
-profileModalCloseButton.addEventListener("click", () =>
-  closeModal(profileEditModal),
-);
 addNewImageButton.addEventListener("click", () => openModal(addImageModal));
-addImageCloseButton.addEventListener("click", () => closeModal(addImageModal));
 
 profileEditForm.addEventListener("submit", (event) => {
   event.preventDefault();
