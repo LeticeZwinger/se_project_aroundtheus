@@ -1,3 +1,5 @@
+// Prettier adds a bunch of space characters aroud the word "explorer", if the space characters are not deleted, the "save" button still show as valid, even if there is no letter (since space is valid input, but gives an impression that the form input is empty). The way around it that I found was to add the index.html to prettierignore, but it is much harder to get things done. Any suggestion on how to fix it?
+
 import Card from "../components/cards.js";
 import FormValidator from "../components/formValidator.js";
 
@@ -104,15 +106,20 @@ addImageForm.addEventListener("submit", function (event) {
   renderCard(newCardData);
   closeModal(addImageModal);
   event.target.reset();
+  addFormValidator.resetValidation(); // Reset validation and button state
 });
 
 profileEditButton.addEventListener("click", () => {
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
   openModal(profileEditModal);
+  editFormValidator.resetValidation(); // Ensure validation state is correct
 });
 
-addNewImageButton.addEventListener("click", () => openModal(addImageModal));
+addNewImageButton.addEventListener("click", () => {
+  openModal(addImageModal);
+  addFormValidator.resetValidation(); // Ensure validation state is correct
+});
 
 profileEditForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -133,7 +140,7 @@ modals.forEach((modal) => {
   modal.addEventListener("mousedown", (evt) => {
     if (
       evt.target.classList.contains("modal_opened") ||
-      evt.target.classList.contains("modal__close")
+      evt.target.classList.contains("modal__close-button")
     ) {
       closeModal(modal);
     }
