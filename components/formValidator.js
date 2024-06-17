@@ -26,7 +26,7 @@ export default class FormValidator {
   }
 
   _checkInputValidity(inputEl) {
-    if (!inputEl.validity.valid) {
+    if (!inputEl.validity.valid || inputEl.value.trim() === "") {
       this._showInputError(inputEl);
     } else {
       this._hideInputError(inputEl);
@@ -34,7 +34,9 @@ export default class FormValidator {
   }
 
   _hasInvalidInput() {
-    return this._inputList.some((inputEl) => !inputEl.validity.valid);
+    return this._inputList.some(
+      (inputEl) => !inputEl.validity.valid || inputEl.value.trim() === "",
+    );
   }
 
   _toggleButtonState() {
@@ -61,6 +63,11 @@ export default class FormValidator {
       this._hideInputError(inputEl);
     });
     this._toggleButtonState();
+  }
+
+  disableButton() {
+    this._submitButton.classList.add(this._inactiveButtonClass);
+    this._submitButton.disabled = true;
   }
 
   enableValidation() {
