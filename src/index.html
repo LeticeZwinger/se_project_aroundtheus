@@ -8,21 +8,25 @@
     <meta name="keywords" content="national parks, project, sprint 3" />
 
     <title>Around the US</title>
-    <link rel="stylesheet" href="./pages/index.css" />
+
     <link rel="shortcut icon" href="favicon.ico" />
   </head>
   <body class="page">
     <div class="page__content">
       <header class="header page__section">
         <img
-          src="./images/logo.svg"
+          src="<%=require('./images/logo.svg')%>"
           alt="aroud the us logo"
           class="header__logo"
         />
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img src="./images/Avatar.png" alt="avatar" class="profile__image" />
+          <img
+            src="<%=require('./images/Avatar.png')%>"
+            alt="avatar"
+            class="profile__image"
+          />
           <div class="profile__info">
             <h1 class="profile__title" id="profile-title">Jacques Cousteau</h1>
             <button
@@ -160,6 +164,5 @@
         </div>
       </li>
     </template>
-    <script src="./pages/index.js" type="module"></script>
   </body>
 </html>
