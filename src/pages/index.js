@@ -1,87 +1,49 @@
-// Prettier adds a bunch of space characters aroud the word "explorer", if the space characters are not deleted, the "save" button still show as valid, even if there is no letter (since space is valid input, but gives an impression that the form input is empty). The way around it that I found was to add the index.html to prettierignore, but it is much harder to get things done. Any suggestion on how to fix it?
-
 import Card from "../components/Card.js";
-import FormValidator from "../components/formValidator.js";
+import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
+import ModalWithForm from "../components/ModalWithForm.js";
+import ModalWithImage from "../components/ModalWithImage.js";
+import UserInfo from "../components/UserInfo.js";
 import "../pages/index.css";
-
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
-];
-
-const config = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__form-input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__button_disabled",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error_visible",
-};
+import { initialCards, config } from "../utils/constants.js";
 
 const profileEditButton = document.querySelector("#profile-edit-button");
 const addNewImageButton = document.querySelector("#profile-add-button");
-const profileEditModal = document.querySelector("#profile-edit-modal");
-const addImageModal = document.querySelector("#add-image-modal");
-const profileTitle = document.querySelector("#profile-title");
-const profileDescription = document.querySelector("#profile-description");
+
 const profileTitleInput = document.querySelector("#modal-input-title");
 const profileDescriptionInput = document.querySelector(
   "#modal-input-description",
 );
-const imageTitleInput = document.querySelector("#modal-image-title");
-const imageLinkInput = document.querySelector("#modal-image-link");
-const cardListEl = document.querySelector(".cards__list");
+
 const addImageForm = document.forms["modal-image-form"];
 const profileEditForm = document.forms["modal-profile-form"];
-const previewImageModal = document.querySelector("#image-preview-modal");
-const previewImage = previewImageModal.querySelector(".modal__preview-image");
-const previewDescription = previewImageModal.querySelector(
-  ".modal__preview-description",
+
+const userInfo = new UserInfo({
+  nameSelector: "#profile-title",
+  descriptionSelector: "#profile-description",
+});
+
+const profileEditModal = new ModalWithForm(
+  "#profile-edit-modal",
+  (formData) => {
+    userInfo.setUserInfo({
+      name: formData.title,
+      description: formData.description,
+    });
+    profileEditModal.close();
+  },
 );
 
-function openModal(modal) {
-  modal.classList.add("modal_opened");
-  document.addEventListener("keydown", handleEscKey);
-}
+const addImageModal = new ModalWithForm("#add-image-modal", (formData) => {
+  const cardData = { name: formData.title, link: formData.link };
+  cardSection.addItem(createCard(cardData));
+  addImageModal.close();
+});
 
-function closeModal(modal) {
-  modal.classList.remove("modal_opened");
-  document.removeEventListener("keydown", handleEscKey);
-}
-
-function handleEscKey(event) {
-  if (event.key === "Escape") {
-    document.querySelectorAll(".modal.modal_opened").forEach(closeModal);
-  }
-}
+const imagePreviewModal = new ModalWithImage("#image-preview-modal");
 
 function handleCardClick(link, name) {
-  previewImage.src = link;
-  previewImage.alt = name;
-  previewDescription.textContent = name;
-  openModal(previewImageModal);
+  imagePreviewModal.open({ name, link });
 }
 
 function createCard(cardData) {
@@ -89,44 +51,18 @@ function createCard(cardData) {
   return card.getView();
 }
 
-function renderCard(cardData) {
-  const cardElement = createCard(cardData);
-  cardListEl.prepend(cardElement);
-}
+const cardSection = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const cardElement = createCard(item);
+      cardSection.addItem(cardElement);
+    },
+  },
+  ".cards__list",
+);
 
-initialCards.forEach((cardData) => {
-  renderCard(cardData);
-});
-
-addImageForm.addEventListener("submit", function (event) {
-  event.preventDefault();
-  const newCardData = {
-    name: imageTitleInput.value,
-    link: imageLinkInput.value,
-  };
-  renderCard(newCardData);
-  closeModal(addImageModal);
-  event.target.reset();
-  addFormValidator.disableButton();
-});
-
-profileEditButton.addEventListener("click", () => {
-  profileTitleInput.value = profileTitle.textContent.trim();
-  profileDescriptionInput.value = profileDescription.textContent.trim();
-  openModal(profileEditModal);
-  editFormValidator.resetValidation();
-});
-
-addNewImageButton.addEventListener("click", () => {
-  openModal(addImageModal);
-});
-
-profileEditForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  profileTitle.textContent = profileTitleInput.value;
-  profileDescription.textContent = profileDescriptionInput.value;
-  closeModal(profileEditModal);
-});
+cardSection.renderItems();
 
 const editFormValidator = new FormValidator(config, profileEditForm);
 const addFormValidator = new FormValidator(config, addImageForm);
@@ -134,15 +70,19 @@ const addFormValidator = new FormValidator(config, addImageForm);
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
-const modals = document.querySelectorAll(".modal");
-
-modals.forEach((modal) => {
-  modal.addEventListener("mousedown", (evt) => {
-    if (
-      evt.target.classList.contains("modal_opened") ||
-      evt.target.classList.contains("modal__close-button")
-    ) {
-      closeModal(modal);
-    }
-  });
+profileEditButton.addEventListener("click", () => {
+  const userData = userInfo.getUserInfo();
+  profileTitleInput.value = userData.name;
+  profileDescriptionInput.value = userData.description;
+  profileEditModal.open();
+  editFormValidator.resetValidation();
 });
+
+addNewImageButton.addEventListener("click", () => {
+  addImageModal.open();
+  addFormValidator.resetValidation();
+});
+
+profileEditModal.setEventListeners();
+addImageModal.setEventListeners();
+imagePreviewModal.setEventListeners();
