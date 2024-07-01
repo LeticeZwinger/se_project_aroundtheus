@@ -33,14 +33,3 @@ export const config = {
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
 };
-
-const profileEditButton = document.querySelector("#profile-edit-button");
-const addNewImageButton = document.querySelector("#profile-add-button");
-
-const profileTitleInput = document.querySelector("#modal-input-title");
-const profileDescriptionInput = document.querySelector(
-  "#modal-input-description",
-);
-
-const addImageForm = document.forms["modal-image-form"];
-const profileEditForm = document.forms["modal-profile-form"];

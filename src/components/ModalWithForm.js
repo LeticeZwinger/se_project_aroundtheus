@@ -1,4 +1,3 @@
-// ModalWithForm.js
 import Modal from "./Modal.js";
 
 export default class ModalWithForm extends Modal {
@@ -25,8 +24,8 @@ export default class ModalWithForm extends Modal {
     super.setEventListeners();
   }
 
-  // close() {
-  //   this._modalForm.reset();
-  //   super.close();
-  // }
+  close() {
+    this._modalForm.reset();
+    super.close();
+  }
 }
