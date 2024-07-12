@@ -1,8 +1,8 @@
-import Modal from "./Modal.js";
+import Modal from "./Modal";
 
-export default class ModalWithForm extends Modal {
-  constructor(modalSelector, handleFormSubmit) {
-    super(modalSelector);
+class ModalWithForm extends Modal {
+  constructor({ modalSelector, handleFormSubmit }) {
+    super({ modalSelector });
     this._modalForm = this._modalElement.querySelector(".modal__form");
     this._handleFormSubmit = handleFormSubmit;
   }
@@ -29,3 +29,5 @@ export default class ModalWithForm extends Modal {
     super.close();
   }
 }
+
+export default ModalWithForm;

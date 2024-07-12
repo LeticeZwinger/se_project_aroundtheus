@@ -13,16 +13,24 @@ export default class FormValidator {
 
   _showInputError(inputEl) {
     const errorMsgElement = this._form.querySelector(`#${inputEl.id}-error`);
-    inputEl.classList.add(this._inputErrorClass);
-    errorMsgElement.textContent = inputEl.validationMessage;
-    errorMsgElement.classList.add(this._errorClass);
+    if (errorMsgElement) {
+      inputEl.classList.add(this._inputErrorClass);
+      errorMsgElement.textContent = inputEl.validationMessage;
+      errorMsgElement.classList.add(this._errorClass);
+    } else {
+      console.error(`Error message element not found for input: ${inputEl.id}`);
+    }
   }
 
   _hideInputError(inputEl) {
     const errorMsgElement = this._form.querySelector(`#${inputEl.id}-error`);
-    inputEl.classList.remove(this._inputErrorClass);
-    errorMsgElement.textContent = " ";
-    errorMsgElement.classList.remove(this._errorClass);
+    if (errorMsgElement) {
+      inputEl.classList.remove(this._inputErrorClass);
+      errorMsgElement.textContent = "";
+      errorMsgElement.classList.remove(this._errorClass);
+    } else {
+      console.error(`Error message element not found for input: ${inputEl.id}`);
+    }
   }
 
   _checkInputValidity(inputEl) {
