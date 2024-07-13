@@ -2,7 +2,7 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import ModalWithForm from "../components/ModalWithForm.js";
-import ModalWithImage from "../components/ModalWithImage.js";
+import ModalWithImage from "../components/ModalWithImage.1.js";
 import UserInfo from "../components/UserInfo.js";
 import "../pages/index.css";
 import { initialCards, config } from "../utils/constants.js";
@@ -137,19 +137,16 @@ document
     closeModal(document.querySelector("#delete-confirmation-modal"));
   });
 
-// Open modal helper function
 function openModal(modal) {
   modal.classList.add("modal_opened");
   document.addEventListener("keydown", handleEscKey);
 }
 
-// Close modal helper function
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
   document.removeEventListener("keydown", handleEscKey);
 }
 
-// Handle escape key close
 function handleEscKey(event) {
   if (event.key === "Escape") {
     const openModals = document.querySelectorAll(".modal_opened");
@@ -157,7 +154,6 @@ function handleEscKey(event) {
   }
 }
 
-// Handle overlay and close button click
 const modals = document.querySelectorAll(".modal");
 modals.forEach((modal) => {
   modal.addEventListener("mousedown", (evt) => {
