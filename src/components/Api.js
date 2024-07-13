@@ -1,11 +1,11 @@
-export default class Api {
-  constructor({ baseUrl }) {
-    // constructor body
-  }
+// export default class Api {
+//   constructor({ baseUrl }) {
+//     // constructor body
+//   }
 
-  getInitialCards() {
-    // ...
-  }
+//   getInitialCards() {
+//     // ...
+//   }
 
-  // other methods for working with the API
-}
+//   // other methods for working with the API
+// }

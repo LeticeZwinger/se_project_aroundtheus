@@ -9,7 +9,7 @@ import { initialCards, config } from "../utils/constants.js";
 
 const profileEditButton = document.querySelector("#profile-edit-button");
 const addNewImageButton = document.querySelector("#profile-add-button");
-const profileImageButton = document.querySelector("#profile-picture-button");
+const profileImageButton = document.querySelector("#profile-image-button");
 
 const profileTitleInput = document.querySelector("#modal-input-title");
 const profileDescriptionInput = document.querySelector(
@@ -19,18 +19,11 @@ const profileDescriptionInput = document.querySelector(
 const addImageForm = document.forms["modal-image-form"];
 const profileEditForm = document.forms["modal-profile-form"];
 const profileImageForm = document.forms["profile-image-modal-form"];
+const deleteConfirmationForm = document.forms["delete-confirmation-modal-form"];
 
 const userInfo = new UserInfo({
   nameSelector: "#profile-title",
   descriptionSelector: "#profile-description",
-});
-
-const api = new Api({
-  baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  headers: {
-    authorization: "c56e30dc-2883-4270-a59e-b2f7bae969c6",
-    "Content-Type": "application/json",
-  },
 });
 
 const profileEditModal = new ModalWithForm({
@@ -67,13 +60,25 @@ function handleCardClick(link, name) {
   imagePreviewModal.open({ name, link });
 }
 
+let cardToDelete = null;
+
+function handleDeleteClick(card) {
+  cardToDelete = card;
+  openModal(document.querySelector("#delete-confirmation-modal"));
+}
+
 function handleProfileImageChange(link) {
   const profileImage = document.querySelector(".profile__image");
   profileImage.src = link;
 }
 
 function createCard(cardData) {
-  const card = new Card(cardData, "#card-template", handleCardClick);
+  const card = new Card(
+    cardData,
+    "#card-template",
+    handleCardClick,
+    handleDeleteClick,
+  );
   return card.getView();
 }
 
@@ -120,3 +125,47 @@ profileEditModal.setEventListeners();
 addImageModal.setEventListeners();
 profileImageModal.setEventListeners();
 imagePreviewModal.setEventListeners();
+
+document
+  .querySelector("#delete-confirmation-modal-form")
+  .addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (cardToDelete) {
+      cardToDelete._handleDeleteButton();
+      cardToDelete = null;
+    }
+    closeModal(document.querySelector("#delete-confirmation-modal"));
+  });
+
+// Open modal helper function
+function openModal(modal) {
+  modal.classList.add("modal_opened");
+  document.addEventListener("keydown", handleEscKey);
+}
+
+// Close modal helper function
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", handleEscKey);
+}
+
+// Handle escape key close
+function handleEscKey(event) {
+  if (event.key === "Escape") {
+    const openModals = document.querySelectorAll(".modal_opened");
+    openModals.forEach((modal) => closeModal(modal));
+  }
+}
+
+// Handle overlay and close button click
+const modals = document.querySelectorAll(".modal");
+modals.forEach((modal) => {
+  modal.addEventListener("mousedown", (evt) => {
+    if (
+      evt.target.classList.contains("modal_opened") ||
+      evt.target.classList.contains("modal__close-button")
+    ) {
+      closeModal(modal);
+    }
+  });
+});

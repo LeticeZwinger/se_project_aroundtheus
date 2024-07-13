@@ -3,6 +3,10 @@ export default class Modal {
     this._modalElement = document.querySelector(modalSelector);
     this._handleEscClose = this._handleEscClose.bind(this);
     this._closeModalOnClick = this._closeModalOnClick.bind(this);
+
+    if (!this._modalElement) {
+      console.error(`Modal element not found for selector: ${modalSelector}`);
+    }
   }
 
   open() {
@@ -31,6 +35,10 @@ export default class Modal {
   }
 
   setEventListeners() {
+    if (!this._modalElement) {
+      console.error("Modal element is not defined");
+      return;
+    }
     this._modalElement.addEventListener("mousedown", this._closeModalOnClick);
   }
 }

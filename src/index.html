@@ -186,20 +186,22 @@
     </div>
 
     <!-- deleting button confirmation -->
-    <fieldset class="modal__fieldset">
-      <button
-        class="modal__close-button"
-        id="delete-confirmation-close-button"
-      ></button>
-      <p class="modal__title">Are you sure?</p>
-      <form
-        class="modal__form"
-        id="delete-confirmation-modal-form"
-        name="delete-card-modal-form"
-      >
-        <button class="modal__button" name="confirm-delete">Yes</button>
-      </form>
-    </fieldset>
+    <div class="modal" id="delete-confirmation-modal">
+      <fieldset class="modal__fieldset">
+        <button
+          class="modal__close-button"
+          id="delete-confirmation-close-button"
+        ></button>
+        <p class="modal__title">Are you sure?</p>
+        <form
+          class="modal__form"
+          id="delete-confirmation-modal-form"
+          name="delete-card-modal-form"
+        >
+          <button class="modal__button" name="confirm-delete">Yes</button>
+        </form>
+      </fieldset>
+    </div>
 
     <template class="card__template" id="card-template">
       <li class="card">
