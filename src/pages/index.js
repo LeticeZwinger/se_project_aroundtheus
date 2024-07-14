@@ -2,7 +2,7 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import ModalWithForm from "../components/ModalWithForm.js";
-import ModalWithImage from "../components/ModalWithImage.1.js";
+import ModalWithImage from "../components/ModalWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import "../pages/index.css";
 import { initialCards, config } from "../utils/constants.js";
