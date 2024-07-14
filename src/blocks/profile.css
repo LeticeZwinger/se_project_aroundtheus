@@ -22,6 +22,7 @@
   margin-right: 24px;
   background-position: center;
   position: relative;
+  border-radius: 50%;
 }
 
 .profile__title {
