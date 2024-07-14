@@ -25,11 +25,9 @@
   background-color: #fff;
   border-radius: 10px;
   width: 330px;
-  max-height: 270px; /* Changed from height to min-height */
   display: flex;
   justify-content: center;
   flex-direction: column;
-  /* box-sizing: border-box; Ensures padding is included in the total width and height */
 }
 
 .modal_opened {
@@ -61,16 +59,15 @@
   font-weight: 900;
   line-height: 20px;
   font-size: 24px;
-  margin-bottom: 38px;
   margin-top: 0;
 }
 
 .modal__form-input {
-  margin-top: 20px; /* Adjusted margin to provide spacing */
+  margin-top: 20px;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   width: 100%;
-  height: 20px; /* Adjusted height */
+  height: 100%;
   padding-bottom: 10px;
   font-size: 16px;
   line-height: 20px;
@@ -91,6 +88,7 @@
   background-color: #000;
   color: #fff;
   border-radius: 2px;
+  margin-top: 38px;
 
   font-size: 20px;
   line-height: 22px;
@@ -140,8 +138,8 @@
 }
 @media screen and (max-width: 662px) {
   .modal__fieldset {
-    width: 120px;
-    height: 282px;
+    max-width: 120px;
+    max-height: 282px;
     background-color: #fff;
     margin-top: 127px;
     padding: 25px 22px;

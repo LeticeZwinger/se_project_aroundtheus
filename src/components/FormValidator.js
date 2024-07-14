@@ -34,7 +34,8 @@ export default class FormValidator {
   }
 
   _checkInputValidity(inputEl) {
-    if (!inputEl.validity.valid || inputEl.value.trim() === "") {
+    const trimmedValue = inputEl.value.trim();
+    if (!inputEl.validity.valid || trimmedValue === "") {
       this._showInputError(inputEl);
     } else {
       this._hideInputError(inputEl);
@@ -60,6 +61,7 @@ export default class FormValidator {
   _setEventListeners() {
     this._inputList.forEach((inputEl) => {
       inputEl.addEventListener("input", () => {
+        inputEl.value = inputEl.value.trim();
         this._checkInputValidity(inputEl);
         this._toggleButtonState();
       });
@@ -68,6 +70,7 @@ export default class FormValidator {
 
   resetValidation() {
     this._inputList.forEach((inputEl) => {
+      inputEl.value = inputEl.value.trim(); // Trim value on reset
       this._hideInputError(inputEl);
     });
     this._toggleButtonState();
