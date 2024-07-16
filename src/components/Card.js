@@ -2,6 +2,7 @@ export default class Card {
   constructor(cardData, cardSelector, handleCardClick, handleDeleteClick) {
     this._name = cardData.name;
     this._link = cardData.link;
+    this._id = cardData._id;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
@@ -38,10 +39,11 @@ export default class Card {
   }
 
   _getTemplate() {
-    return document
+    const cardElement = document
       .querySelector(this._cardSelector)
       .content.querySelector(".card")
       .cloneNode(true);
+    return cardElement;
   }
 
   getView() {

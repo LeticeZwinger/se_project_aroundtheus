@@ -5,7 +5,9 @@ import ModalWithForm from "../components/ModalWithForm.js";
 import ModalWithImage from "../components/ModalWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import "../pages/index.css";
-import { initialCards, config } from "../utils/constants.js";
+import { config } from "../utils/constants.js"; // No need to import initialCards anymore
+import api from "../components/Api.js";
+import ModalWithConfirmation from "../components/ModalWithConfirmation.js";
 
 const profileEditButton = document.querySelector("#profile-edit-button");
 const addNewImageButton = document.querySelector("#profile-add-button");
@@ -19,38 +21,67 @@ const profileDescriptionInput = document.querySelector(
 const addImageForm = document.forms["modal-image-form"];
 const profileEditForm = document.forms["modal-profile-form"];
 const profileImageForm = document.forms["profile-image-modal-form"];
-const deleteConfirmationForm = document.forms["delete-confirmation-modal-form"];
 
 const userInfo = new UserInfo({
   nameSelector: "#profile-title",
   descriptionSelector: "#profile-description",
+  avatarSelector: ".profile__image",
+});
+
+const deleteConfirmationModal = new ModalWithConfirmation({
+  modalSelector: "#delete-confirmation-modal",
 });
 
 const profileEditModal = new ModalWithForm({
   modalSelector: "#profile-edit-modal",
   handleFormSubmit: (formData) => {
-    userInfo.setUserInfo({
-      name: formData.title,
-      description: formData.description,
-    });
-    profileEditModal.close();
+    api
+      .updateUserInfo({
+        name: formData.title,
+        about: formData.description,
+      })
+      .then((userData) => {
+        userInfo.setUserInfo({
+          name: userData.name,
+          description: userData.about,
+          avatar: userData.avatar,
+        });
+        profileEditModal.close();
+      })
+      .catch((err) => console.error(err));
   },
 });
 
 const addImageModal = new ModalWithForm({
   modalSelector: "#add-image-modal",
   handleFormSubmit: (formData) => {
-    const cardData = { name: formData.title, link: formData.link };
-    cardSection.addItem(createCard(cardData));
-    addImageModal.close();
+    api
+      .addCard({
+        name: formData.title,
+        link: formData.link,
+      })
+      .then((cardData) => {
+        cardSection.addItem(createCard(cardData));
+        addImageModal.close();
+      })
+      .catch((err) => console.error(err));
   },
 });
 
 const profileImageModal = new ModalWithForm({
   modalSelector: "#profile-image-modal",
   handleFormSubmit: (formData) => {
-    handleProfileImageChange(formData.link);
-    profileImageModal.close();
+    api
+      .updateProfileImage({
+        profileImage: formData.link,
+      })
+      .then((userData) => {
+        userInfo.setUserInfo({
+          avatar: userData.avatar,
+        });
+        profileImageModal.close();
+      })
+      .catch((err) => console.error(err));
   },
 });
 
@@ -60,11 +91,23 @@ function handleCardClick(link, name) {
   imagePreviewModal.open({ name, link });
 }
 
-let cardToDelete = null;
+// runs when I click the delete button on a card
+function handleDeleteClick(cardToDelete) {
+  deleteConfirmationModal.open();
 
-function handleDeleteClick(card) {
-  cardToDelete = card;
-  openModal(document.querySelector("#delete-confirmation-modal"));
+  deleteConfirmationModal.setSubmitHandler((event) => {
+    event.preventDefault();
+    if (cardToDelete) {
+      api
+        .deleteCard(cardToDelete._id)
+        .then(() => {
+          cardToDelete._handleDeleteButton();
+          cardToDelete._id = null;
+          closeModal(deleteConfirmationModal);
+        })
+        .catch((err) => console.error(err));
+    }
+  });
 }
 
 function handleProfileImageChange(link) {
@@ -84,7 +127,7 @@ function createCard(cardData) {
 
 const cardSection = new Section(
   {
-    items: initialCards,
+    items: api.getInitialCards,
     renderer: (item) => {
       const cardElement = createCard(item);
       cardSection.addItem(cardElement);
@@ -92,8 +135,6 @@ const cardSection = new Section(
   },
   ".cards__list",
 );
-
-cardSection.renderItems();
 
 const editFormValidator = new FormValidator(config, profileEditForm);
 const addFormValidator = new FormValidator(config, addImageForm);
@@ -126,42 +167,30 @@ addImageModal.setEventListeners();
 profileImageModal.setEventListeners();
 imagePreviewModal.setEventListeners();
 
-document
-  .querySelector("#delete-confirmation-modal-form")
-  .addEventListener("submit", (event) => {
-    event.preventDefault();
-    if (cardToDelete) {
-      cardToDelete._handleDeleteButton();
-      cardToDelete = null;
-    }
-    closeModal(document.querySelector("#delete-confirmation-modal"));
-  });
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    console.log("User Data:", userData);
+    console.log("Initial Cards:", cards);
 
-function openModal(modal) {
-  modal.classList.add("modal_opened");
-  document.addEventListener("keydown", handleEscKey);
-}
+    userInfo.setUserInfo({
+      name: userData.name,
+      description: userData.about,
+      avatar: userData.avatar,
+    });
+    cardSection.renderItems(cards);
+  })
+  .catch((err) => console.error(err));
 
-function closeModal(modal) {
-  modal.classList.remove("modal_opened");
-  document.removeEventListener("keydown", handleEscKey);
-}
-
-function handleEscKey(event) {
-  if (event.key === "Escape") {
-    const openModals = document.querySelectorAll(".modal_opened");
-    openModals.forEach((modal) => closeModal(modal));
-  }
-}
+// deal with later, integrate with other modals //
 
 const modals = document.querySelectorAll(".modal");
-modals.forEach((modal) => {
+modals.forEach((_modalElement) => {
   modal.addEventListener("mousedown", (evt) => {
     if (
       evt.target.classList.contains("modal_opened") ||
       evt.target.classList.contains("modal__close-button")
     ) {
-      closeModal(modal);
+      deleteConfirmationModal.close;
     }
   });
 });

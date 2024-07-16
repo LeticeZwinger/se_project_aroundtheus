@@ -9,6 +9,7 @@ class ModalWithForm extends Modal {
 
   _getInputValues() {
     this._inputList = this._modalForm.querySelectorAll(".modal__form-input");
+
     this._formValues = {};
     this._inputList.forEach((input) => {
       this._formValues[input.name] = input.value;
