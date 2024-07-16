@@ -11,7 +11,6 @@ class Api {
     this.addCard = this.addCard.bind(this);
     this.deleteCard = this.deleteCard.bind(this);
     this.likeCard = this.likeCard.bind(this);
-    this.dislikeCard = this.dislikeCard.bind(this);
   }
 
   _checkResponse(res) {
@@ -107,7 +106,7 @@ class Api {
       .catch(this._catchError);
   }
 
-  dislikeCard(cardId) {
+  unlikeCard(cardId) {
     console.log("Disliked card: ", cardId);
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",

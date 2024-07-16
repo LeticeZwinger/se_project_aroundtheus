@@ -8,6 +8,7 @@ import "../pages/index.css";
 import { config } from "../utils/constants.js"; // No need to import initialCards anymore
 import api from "../components/Api.js";
 import ModalWithConfirmation from "../components/ModalWithConfirmation.js";
+import Modal from "../components/Modal.js";
 
 const profileEditButton = document.querySelector("#profile-edit-button");
 const addNewImageButton = document.querySelector("#profile-add-button");
@@ -30,7 +31,9 @@ const userInfo = new UserInfo({
 
 const deleteConfirmationModal = new ModalWithConfirmation({
   modalSelector: "#delete-confirmation-modal",
+  handleFormSubmit: () => {},
 });
+deleteConfirmationModal.setEventListeners();
 
 const profileEditModal = new ModalWithForm({
   modalSelector: "#profile-edit-modal",
@@ -91,29 +94,11 @@ function handleCardClick(link, name) {
   imagePreviewModal.open({ name, link });
 }
 
-// runs when I click the delete button on a card
-function handleDeleteClick(cardToDelete) {
-  deleteConfirmationModal.open();
-
-  deleteConfirmationModal.setSubmitHandler((event) => {
-    event.preventDefault();
-    if (cardToDelete) {
-      api
-        .deleteCard(cardToDelete._id)
-        .then(() => {
-          cardToDelete._handleDeleteButton();
-          cardToDelete._id = null;
-          closeModal(deleteConfirmationModal);
-        })
-        .catch((err) => console.error(err));
-    }
-  });
-}
-
-function handleProfileImageChange(link) {
-  const profileImage = document.querySelector(".profile__image");
-  profileImage.src = link;
-}
+const modals = document.querySelectorAll(".modal");
+modals.forEach((modalElement) => {
+  const modalDelete = new Modal({ modalSelector: `#${modalElement.id}` });
+  modalDelete.setEventListeners();
+});
 
 function createCard(cardData) {
   const card = new Card(
@@ -121,6 +106,7 @@ function createCard(cardData) {
     "#card-template",
     handleCardClick,
     handleDeleteClick,
+    handleLikeButton,
   );
   return card.getView();
 }
@@ -139,6 +125,35 @@ const cardSection = new Section(
 const editFormValidator = new FormValidator(config, profileEditForm);
 const addFormValidator = new FormValidator(config, addImageForm);
 const profileImageFormValidator = new FormValidator(config, profileImageForm);
+
+// runs when I click the delete button on a card -- NOT  WORKING º_º
+function handleDeleteClick(cardToDelete) {
+  console.log("asdf");
+
+  deleteConfirmationModal.open();
+
+  deleteConfirmationModal.setSubmitHandler(() => {
+    if (cardToDelete) {
+      api
+        .deleteCard(cardToDelete._id)
+        .then(() => {
+          cardToDelete.handleDeleteButton();
+          cardToDelete = null;
+          deleteConfirmationModal.close();
+        })
+        .catch((err) => console.error(err));
+    }
+  });
+}
+
+function handleLikeButton(card) {
+  if (card._isLiked) {
+    api.unlikeCard(card._id);
+  } else {
+    api.likeCard(card._id);
+  }
+}
+// ----  //
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
@@ -180,17 +195,3 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     cardSection.renderItems(cards);
   })
   .catch((err) => console.error(err));
-
-// deal with later, integrate with other modals //
-
-const modals = document.querySelectorAll(".modal");
-modals.forEach((_modalElement) => {
-  modal.addEventListener("mousedown", (evt) => {
-    if (
-      evt.target.classList.contains("modal_opened") ||
-      evt.target.classList.contains("modal__close-button")
-    ) {
-      deleteConfirmationModal.close;
-    }
-  });
-});

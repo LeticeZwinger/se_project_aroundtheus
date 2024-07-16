@@ -32,6 +32,9 @@
   object-fit: cover;
 }
 
+.card__like-count {
+}
+
 .card__like-button {
   width: 21px;
   height: 19px;

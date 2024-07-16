@@ -8,10 +8,12 @@ class ModalWithConfirmation extends Modal {
   }
 
   setEventListeners() {
-    this._modalForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      this._handleFormSubmit();
-    });
+    if (this._modalForm) {
+      this._modalForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        this._handleFormSubmit();
+      });
+    }
     super.setEventListeners();
   }
 

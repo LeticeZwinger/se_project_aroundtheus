@@ -1,18 +1,26 @@
 export default class Card {
-  constructor(cardData, cardSelector, handleCardClick, handleDeleteClick) {
+  constructor(
+    cardData,
+    cardSelector,
+    handleCardClick,
+    handleDeleteClick,
+    handleLikeButton,
+  ) {
     this._name = cardData.name;
     this._link = cardData.link;
     this._id = cardData._id;
+    this._isLiked = cardData.isLiked;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
+    this._handleLikeButton = handleLikeButton;
   }
 
   _setEventListeners() {
     this._cardElement
       .querySelector(".card__like-button")
       .addEventListener("click", () => {
-        this._handleLikeButton();
+        this._handleLikeButton(this);
       });
 
     this._cardElement
@@ -28,22 +36,21 @@ export default class Card {
       });
   }
 
-  _handleDeleteButton() {
-    this._cardElement.remove();
-  }
-
-  _handleLikeButton() {
+  _updateLikes(likes) {
+    this._cardElement.querySelector(".card__like-count").textContent = likes;
     this._cardElement
       .querySelector(".card__like-button")
       .classList.toggle("card__like-button-active");
   }
 
   _getTemplate() {
-    const cardElement = document
+    return document
       .querySelector(this._cardSelector)
       .content.querySelector(".card")
       .cloneNode(true);
-    return cardElement;
+  }
+  handleDeleteButton() {
+    this._cardElement.remove();
   }
 
   getView() {
@@ -52,7 +59,15 @@ export default class Card {
     const cardImage = this._cardElement.querySelector(".card__image");
     cardImage.src = this._link;
     cardImage.alt = this._name;
+
+    this._updateLikes(this._likes);
     this._setEventListeners();
     return this._cardElement;
   }
 }
+
+// creat span for like count?
+// how to style it?
+// does the original USA card should be on the final project?
+// toggle card likes not functioning to unlike it
+// added card goes to the end of the list when page refresh, is it okay?
