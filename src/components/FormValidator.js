@@ -35,8 +35,6 @@ export default class FormValidator {
   }
 
   _checkInputValidity(inputEl) {
-    // const trimmedValue = inputEl.value.trim();
-    // if (!inputEl.validity.valid || trimmedValue === "") {
     if (!inputEl.validity.valid) {
       this._showInputError(inputEl);
     } else {

@@ -5,7 +5,7 @@ import ModalWithForm from "../components/ModalWithForm.js";
 import ModalWithImage from "../components/ModalWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import "../pages/index.css";
-import { config } from "../utils/constants.js"; // No need to import initialCards anymore
+import { config } from "../utils/constants.js";
 import api from "../components/Api.js";
 import ModalWithConfirmation from "../components/ModalWithConfirmation.js";
 import Modal from "../components/Modal.js";
@@ -141,10 +141,7 @@ const profileEditFormValidator = new FormValidator(config, profileEditForm);
 
 profileImageFormValidator.enableValidation();
 
-// runs when I click the delete button on a card -- FIXED
 function handleDeleteClick(cardToDelete) {
-  console.log("asdf");
-
   deleteConfirmationModal.open();
 
   deleteConfirmationModal.setSubmitHandler(() => {
@@ -167,21 +164,19 @@ function handleLikeButton(card) {
       .unlikeCard(card.id)
       .then((cardData) => {
         card._isLiked = false;
-        card.updateLikes(); //undifined
+        card.updateLikes();
       })
       .catch((err) => console.error(err));
   } else {
     api
       .likeCard(card.id)
-      .then((cardData) => {
+      .then(() => {
         card._isLiked = true;
-        card.updateLikes(); //undifined
+        card.updateLikes();
       })
       .catch((err) => console.error(err));
   }
 }
-
-// ----  //
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();

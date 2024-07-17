@@ -70,10 +70,3 @@ export default class Card {
     return this._cardElement;
   }
 }
-
-// toggle card likes not functioning properly, toggling when page refreshes - FIXED
-// create span for like count? didnt work - NOT NEEDED
-// how to style it in order to chage number when like is triggered? - NOT NEEDED
-// does the original USA cards should be on the final project? - NOPE, ACCORDING TO KEVIN
-// added card goes to the end of the list when page refresh, is it okay? change prepend to apend - DONE
-// fix trim so the user can add space - DONE
