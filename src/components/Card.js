@@ -8,7 +8,7 @@ export default class Card {
   ) {
     this._name = cardData.name;
     this._link = cardData.link;
-    this._id = cardData._id;
+    this.id = cardData._id;
     this._isLiked = cardData.isLiked;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
@@ -36,8 +36,8 @@ export default class Card {
       });
   }
 
-  _updateLikes(likes) {
-    this._cardElement.querySelector(".card__like-count").textContent = likes;
+  updateLikes(likes) {
+    // this._cardElement.querySelector(".card__like-count").textContent = likes;
     this._cardElement
       .querySelector(".card__like-button")
       .classList.toggle("card__like-button-active");
@@ -60,14 +60,24 @@ export default class Card {
     cardImage.src = this._link;
     cardImage.alt = this._name;
 
-    this._updateLikes(this._likes);
+    // this._cardElement.querySelector(".card__like-count").textContent =
+    //   this._likes.length; /undifined
+
+    if (this._isLiked) {
+      this._cardElement
+        .querySelector(".card__like-button")
+        .classList.add("card__like-button-active");
+    }
+
     this._setEventListeners();
+
     return this._cardElement;
   }
 }
 
-// creat span for like count?
-// how to style it?
-// does the original USA card should be on the final project?
-// toggle card likes not functioning to unlike it
-// added card goes to the end of the list when page refresh, is it okay?
+// toggle card likes not functioning properly, toggling when page refreshes - FIXED
+// create span for like count? didnt work - NOT NEEDED
+// how to style it in order to chage number when like is triggered? - NOT NEEDED
+// does the original USA cards should be on the final project? - NOPE, ACCORDING TO KEVIN
+// added card goes to the end of the list when page refresh, is it okay? change prepend to apend - DONE
+// fix trim so the user can add space - DONE

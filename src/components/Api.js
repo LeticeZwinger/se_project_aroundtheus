@@ -107,7 +107,7 @@ class Api {
   }
 
   unlikeCard(cardId) {
-    console.log("Disliked card: ", cardId);
+    console.log("Unliked card: ", cardId);
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,

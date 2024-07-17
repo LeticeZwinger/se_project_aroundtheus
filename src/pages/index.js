@@ -126,7 +126,7 @@ const editFormValidator = new FormValidator(config, profileEditForm);
 const addFormValidator = new FormValidator(config, addImageForm);
 const profileImageFormValidator = new FormValidator(config, profileImageForm);
 
-// runs when I click the delete button on a card -- NOT  WORKING º_º
+// runs when I click the delete button on a card -- FIXED
 function handleDeleteClick(cardToDelete) {
   console.log("asdf");
 
@@ -135,7 +135,7 @@ function handleDeleteClick(cardToDelete) {
   deleteConfirmationModal.setSubmitHandler(() => {
     if (cardToDelete) {
       api
-        .deleteCard(cardToDelete._id)
+        .deleteCard(cardToDelete.id)
         .then(() => {
           cardToDelete.handleDeleteButton();
           cardToDelete = null;
@@ -148,11 +148,24 @@ function handleDeleteClick(cardToDelete) {
 
 function handleLikeButton(card) {
   if (card._isLiked) {
-    api.unlikeCard(card._id);
+    api
+      .unlikeCard(card.id)
+      .then((cardData) => {
+        card._isLiked = false;
+        card.updateLikes(); //undifined
+      })
+      .catch((err) => console.error(err));
   } else {
-    api.likeCard(card._id);
+    api
+      .likeCard(card.id)
+      .then((cardData) => {
+        card._isLiked = true;
+        card.updateLikes(); //undifined
+      })
+      .catch((err) => console.error(err));
   }
 }
+
 // ----  //
 
 editFormValidator.enableValidation();
