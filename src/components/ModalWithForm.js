@@ -29,13 +29,6 @@ class ModalWithForm extends Modal {
     this._modalForm.reset();
     super.close();
   }
-  // is Loading logic goes here - NOT WORKING º_º
-  _renderLoading(isLoading, isLoadingText = "Saving... ") {
-    if (isLoading) {
-      this._handleFormSubmit.textContent = isLoadingText;
-      return isLoadingText;
-    }
-  }
 }
 
 export default ModalWithForm;

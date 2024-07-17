@@ -9,6 +9,7 @@ export default class FormValidator {
     this._form = formElement;
     this._submitButton = this._form.querySelector(this._submitButtonSelector);
     this._inputList = [...this._form.querySelectorAll(this._inputSelector)];
+    this._normalSubmitTextContent = this._submitButton.textContent;
   }
 
   _showInputError(inputEl) {
@@ -62,7 +63,6 @@ export default class FormValidator {
   _setEventListeners() {
     this._inputList.forEach((inputEl) => {
       inputEl.addEventListener("input", () => {
-        //        inputEl.value = inputEl.value.trim();
         this._checkInputValidity(inputEl);
         this._toggleButtonState();
       });
@@ -71,7 +71,6 @@ export default class FormValidator {
 
   resetValidation() {
     this._inputList.forEach((inputEl) => {
-      //  inputEl.value = inputEl.value.trim(); // Trim value on reset
       this._hideInputError(inputEl);
     });
     this._toggleButtonState();
@@ -88,5 +87,13 @@ export default class FormValidator {
     });
     this._setEventListeners();
     this._toggleButtonState();
+  }
+
+  renderLoading(isLoading) {
+    if (isLoading) {
+      this._submitButton.textContent = "Saving...";
+    } else {
+      this._submitButton.textContent = this._normalSubmitTextContent;
+    }
   }
 }

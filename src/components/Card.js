@@ -36,8 +36,7 @@ export default class Card {
       });
   }
 
-  updateLikes(likes) {
-    // this._cardElement.querySelector(".card__like-count").textContent = likes;
+  updateLikes() {
     this._cardElement
       .querySelector(".card__like-button")
       .classList.toggle("card__like-button-active");
@@ -59,9 +58,6 @@ export default class Card {
     const cardImage = this._cardElement.querySelector(".card__image");
     cardImage.src = this._link;
     cardImage.alt = this._name;
-
-    // this._cardElement.querySelector(".card__like-count").textContent =
-    //   this._likes.length; /undifined
 
     if (this._isLiked) {
       this._cardElement

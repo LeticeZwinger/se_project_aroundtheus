@@ -38,6 +38,7 @@ deleteConfirmationModal.setEventListeners();
 const profileEditModal = new ModalWithForm({
   modalSelector: "#profile-edit-modal",
   handleFormSubmit: (formData) => {
+    profileEditFormValidator.renderLoading(true);
     api
       .updateUserInfo({
         name: formData.title,
@@ -51,13 +52,17 @@ const profileEditModal = new ModalWithForm({
         });
         profileEditModal.close();
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => {
+        profileEditFormValidator.renderLoading(false);
+      });
   },
 });
 
 const addImageModal = new ModalWithForm({
   modalSelector: "#add-image-modal",
   handleFormSubmit: (formData) => {
+    addFormValidator.renderLoading(true);
     api
       .addCard({
         name: formData.title,
@@ -67,13 +72,17 @@ const addImageModal = new ModalWithForm({
         cardSection.addItem(createCard(cardData));
         addImageModal.close();
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => {
+        addFormValidator.renderLoading(false);
+      });
   },
 });
 
 const profileImageModal = new ModalWithForm({
   modalSelector: "#profile-image-modal",
   handleFormSubmit: (formData) => {
+    addFormValidator.renderLoading(true);
     api
       .updateProfileImage({
         profileImage: formData.link,
@@ -84,7 +93,10 @@ const profileImageModal = new ModalWithForm({
         });
         profileImageModal.close();
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => {
+        profileImageFormValidator.renderLoading(false);
+      });
   },
 });
 
@@ -125,6 +137,9 @@ const cardSection = new Section(
 const editFormValidator = new FormValidator(config, profileEditForm);
 const addFormValidator = new FormValidator(config, addImageForm);
 const profileImageFormValidator = new FormValidator(config, profileImageForm);
+const profileEditFormValidator = new FormValidator(config, profileEditForm);
+
+profileImageFormValidator.enableValidation();
 
 // runs when I click the delete button on a card -- FIXED
 function handleDeleteClick(cardToDelete) {
