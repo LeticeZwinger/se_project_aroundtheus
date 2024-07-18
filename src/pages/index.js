@@ -82,7 +82,7 @@ const addImageModal = new ModalWithForm({
 const profileImageModal = new ModalWithForm({
   modalSelector: "#profile-image-modal",
   handleFormSubmit: (formData) => {
-    addFormValidator.renderLoading(true);
+    profileImageFormValidator.renderLoading(true);
     api
       .updateProfileImage({
         profileImage: formData.link,
