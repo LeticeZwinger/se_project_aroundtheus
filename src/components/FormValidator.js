@@ -13,6 +13,7 @@ export default class FormValidator {
   }
 
   _showInputError(inputEl) {
+    console.log("ta dando erro issdaqui???", inputEl);
     const errorMsgElement = this._form.querySelector(`#${inputEl.id}-error`);
     if (errorMsgElement) {
       inputEl.classList.add(this._inputErrorClass);
@@ -43,9 +44,7 @@ export default class FormValidator {
   }
 
   _hasInvalidInput() {
-    return this._inputList.some(
-      (inputEl) => !inputEl.validity.valid || inputEl.value.trim() === "",
-    );
+    return this._inputList.some((inputEl) => !inputEl.validity.valid);
   }
 
   _toggleButtonState() {
