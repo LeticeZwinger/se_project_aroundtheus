@@ -4,18 +4,18 @@ export default class ModalWithImage extends Modal {
   constructor(modalSelector) {
     super({ modalSelector });
     this._modalImage = this._modalElement.querySelector(".modal__preview");
-  }
-  open({ name, link }) {
-    const imagePreview = this._modalImage.querySelector(
+    this._imagePreview = this._modalImage.querySelector(
       ".modal__preview-image",
     );
-    const caption = this._modalImage.querySelector(
+    this._caption = this._modalImage.querySelector(
       ".modal__preview-description",
     );
+  }
 
-    imagePreview.src = link;
-    imagePreview.alt = name;
-    caption.textContent = name;
+  open({ name, link }) {
+    this._imagePreview.src = link;
+    this._imagePreview.alt = name;
+    this._caption.textContent = name;
 
     super.open();
   }

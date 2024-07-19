@@ -3,14 +3,6 @@ class Api {
     this._baseUrl = baseUrl;
     this._headers = headers;
     this._checkResponse = this._checkResponse.bind(this);
-    this._catchError = this._catchError.bind(this);
-    this.getInitialCards = this.getInitialCards.bind(this);
-    this.getUserInfo = this.getUserInfo.bind(this);
-    this.updateUserInfo = this.updateUserInfo.bind(this);
-    this.updateProfileImage = this.updateProfileImage.bind(this);
-    this.addCard = this.addCard.bind(this);
-    this.deleteCard = this.deleteCard.bind(this);
-    this.likeCard = this.likeCard.bind(this);
   }
 
   _checkResponse(res) {
@@ -21,99 +13,82 @@ class Api {
     return Promise.reject(`Error: ${res.status}`);
   }
 
-  _catchError(err) {
-    console.error(err);
+  _request(url, options) {
+    return fetch(url, options).then(this._checkResponse);
   }
 
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
+    return this._request(`${this._baseUrl}/cards`, {
       headers: this._headers,
-    })
-      .then(this._checkResponse)
-      .catch(this._catchError);
+    });
   }
 
   getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
+    return this._request(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    })
-      .then(this._checkResponse)
-      .then((data) => {
-        console.log("Fetched User Info:", data);
-        return data;
-      })
-      .catch(this._catchError);
+    }).then((data) => {
+      console.log("Fetched User Info:", data);
+      return data;
+    });
   }
 
   updateUserInfo(data) {
     console.log("Updated user info:", data);
-    return fetch(`${this._baseUrl}/users/me`, {
+    return this._request(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
         about: data.about,
       }),
-    })
-      .then(this._checkResponse)
-      .catch(this._catchError);
+    });
   }
 
   updateProfileImage(data) {
     console.log("Updated profile image: ", data);
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
+    return this._request(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         avatar: data.profileImage,
       }),
-    })
-      .then(this._checkResponse)
-      .catch(this._catchError);
+    });
   }
 
   addCard(data) {
     console.log("Added card: ", data);
-    return fetch(`${this._baseUrl}/cards`, {
+    return this._request(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
         link: data.link,
       }),
-    })
-      .then(this._checkResponse)
-      .catch(this._catchError);
+    });
   }
 
   deleteCard(cardId) {
     console.log("Deleted card: ", cardId);
-    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+    return this._request(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then(this._checkResponse)
-      .catch(this._catchError);
+    });
   }
 
   likeCard(cardId) {
     console.log("Liked card: ", cardId);
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+    return this._request(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
-    })
-      .then(this._checkResponse)
-      .catch(this._catchError);
+    });
   }
 
   unlikeCard(cardId) {
     console.log("Unliked card: ", cardId);
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+    return this._request(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then(this._checkResponse)
-      .catch(this._catchError);
+    });
   }
 }
 

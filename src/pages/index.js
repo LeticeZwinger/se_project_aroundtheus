@@ -36,67 +36,66 @@ const deleteConfirmationModal = new ModalWithConfirmation({
 deleteConfirmationModal.setEventListeners();
 
 const profileEditModal = new ModalWithForm({
-  modalSelector: "#profile-edit-modal",
   handleFormSubmit: (formData) => {
-    profileEditFormValidator.renderLoading(true);
-    api
-      .updateUserInfo({
-        name: formData.title,
-        about: formData.description,
-      })
-      .then((userData) => {
-        userInfo.setUserInfo({
-          name: userData.name,
-          description: userData.about,
-          avatar: userData.avatar,
+    handleSubmit(() => {
+      return api
+        .updateUserInfo({
+          name: formData.title,
+          about: formData.description,
+        })
+        .then((userData) => {
+          userInfo.setUserInfo({
+            name: userData.name,
+            description: userData.about,
+            avatar: userData.avatar,
+          });
         });
-        profileEditModal.close();
-      })
-      .catch((err) => console.error(err))
-      .finally(() => {
-        profileEditFormValidator.renderLoading(false);
-      });
+    }, profileEditModal);
   },
 });
 
 const addImageModal = new ModalWithForm({
   modalSelector: "#add-image-modal",
   handleFormSubmit: (formData) => {
-    addFormValidator.renderLoading(true);
-    api
-      .addCard({
-        name: formData.title,
-        link: formData.link,
-      })
-      .then((cardData) => {
-        cardSection.addItem(createCard(cardData));
-        addImageModal.close();
-      })
-      .catch((err) => console.error(err))
-      .finally(() => {
-        addFormValidator.renderLoading(false);
-      });
+    handleSubmit(() => {
+      return api
+        .addCard({
+          name: formData.title,
+          link: formData.link,
+        })
+        .then((cardData) => {
+          cardSection.addItem(createCard(cardData));
+        });
+    }, addImageModal);
   },
 });
+
+function handleSubmit(request, modalInstance, loadingText = "Saving...") {
+  modalInstance.renderLoading(true, loadingText);
+  request()
+    .then(() => {
+      modalInstance.close();
+    })
+    .catch((err) => console.error(err))
+    .finally(() => {
+      modalInstance.renderLoading(false);
+    });
+}
 
 const profileImageModal = new ModalWithForm({
   modalSelector: "#profile-image-modal",
   handleFormSubmit: (formData) => {
-    profileImageFormValidator.renderLoading(true);
-    api
-      .updateProfileImage({
-        profileImage: formData.link,
-      })
-      .then((userData) => {
-        userInfo.setUserInfo({
-          avatar: userData.avatar,
+    handleSubmit(() => {
+      return api
+        .updateProfileImage({
+          profileImage: formData.link,
+        })
+        .then((userData) => {
+          userInfo.setUserInfo({
+            avatar: userData.avatar,
+          });
         });
-        profileImageModal.close();
-      })
-      .catch((err) => console.error(err))
-      .finally(() => {
-        profileImageFormValidator.renderLoading(false);
-      });
+    }, profileImageModal);
   },
 });
 
@@ -105,12 +104,6 @@ const imagePreviewModal = new ModalWithImage("#image-preview-modal");
 function handleCardClick(link, name) {
   imagePreviewModal.open({ name, link });
 }
-
-const modals = document.querySelectorAll(".modal");
-modals.forEach((modalElement) => {
-  const modalDelete = new Modal({ modalSelector: `#${modalElement.id}` });
-  modalDelete.setEventListeners();
-});
 
 function createCard(cardData) {
   const card = new Card(
@@ -137,7 +130,6 @@ const cardSection = new Section(
 const editFormValidator = new FormValidator(config, profileEditForm);
 const addFormValidator = new FormValidator(config, addImageForm);
 const profileImageFormValidator = new FormValidator(config, profileImageForm);
-const profileEditFormValidator = new FormValidator(config, profileEditForm);
 
 profileImageFormValidator.enableValidation();
 
@@ -159,11 +151,11 @@ function handleDeleteClick(cardToDelete) {
 }
 
 function handleLikeButton(card) {
-  if (card._isLiked) {
+  if (card.isLiked) {
     api
       .unlikeCard(card.id)
       .then((cardData) => {
-        card._isLiked = false;
+        card.isLiked = false;
         card.updateLikes();
       })
       .catch((err) => console.error(err));
@@ -171,7 +163,7 @@ function handleLikeButton(card) {
     api
       .likeCard(card.id)
       .then(() => {
-        card._isLiked = true;
+        card.isLiked = true;
         card.updateLikes();
       })
       .catch((err) => console.error(err));
@@ -184,8 +176,7 @@ profileImageFormValidator.enableValidation();
 
 profileEditButton.addEventListener("click", () => {
   const userData = userInfo.getUserInfo();
-  profileTitleInput.value = userData.name;
-  profileDescriptionInput.value = userData.description;
+  profileEditModal.setInputValues(userData);
   profileEditModal.open();
   editFormValidator.resetValidation();
 });

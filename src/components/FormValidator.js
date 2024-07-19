@@ -13,7 +13,6 @@ export default class FormValidator {
   }
 
   _showInputError(inputEl) {
-    console.log("ta dando erro issdaqui???", inputEl);
     const errorMsgElement = this._form.querySelector(`#${inputEl.id}-error`);
     if (errorMsgElement) {
       inputEl.classList.add(this._inputErrorClass);
@@ -49,11 +48,9 @@ export default class FormValidator {
 
   _toggleButtonState() {
     if (this._hasInvalidInput()) {
-      this._submitButton.classList.add(this._inactiveButtonClass);
-      this._submitButton.disabled = true;
+      this.disableButton();
     } else {
-      this._submitButton.classList.remove(this._inactiveButtonClass);
-      this._submitButton.disabled = false;
+      this.enableButton();
     }
   }
 
@@ -78,19 +75,16 @@ export default class FormValidator {
     this._submitButton.disabled = true;
   }
 
+  enableButton() {
+    this._submitButton.classList.remove(this._inactiveButtonClass);
+    this._submitButton.disabled = false;
+  }
+
   enableValidation() {
     this._form.addEventListener("submit", (event) => {
       event.preventDefault();
     });
     this._setEventListeners();
     this._toggleButtonState();
-  }
-
-  renderLoading(isLoading) {
-    if (isLoading) {
-      this._submitButton.textContent = "Saving...";
-    } else {
-      this._submitButton.textContent = this._normalSubmitTextContent;
-    }
   }
 }
