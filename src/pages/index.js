@@ -29,6 +29,18 @@ const userInfo = new UserInfo({
   avatarSelector: ".profile__image",
 });
 
+function handleSubmit(request, modalInstance, loadingText = "Saving...") {
+  modalInstance.renderLoading(true, loadingText);
+  request()
+    .then(() => {
+      modalInstance.close();
+    })
+    .catch((err) => console.error(err))
+    .finally(() => {
+      modalInstance.renderLoading(false);
+    });
+}
+
 const deleteConfirmationModal = new ModalWithConfirmation({
   modalSelector: "#delete-confirmation-modal",
   handleFormSubmit: () => {},
@@ -36,6 +48,7 @@ const deleteConfirmationModal = new ModalWithConfirmation({
 deleteConfirmationModal.setEventListeners();
 
 const profileEditModal = new ModalWithForm({
+  modalSelector: "#profile-edit-modal",
   handleFormSubmit: (formData) => {
     handleSubmit(() => {
       return api
@@ -69,18 +82,6 @@ const addImageModal = new ModalWithForm({
     }, addImageModal);
   },
 });
-
-function handleSubmit(request, modalInstance, loadingText = "Saving...") {
-  modalInstance.renderLoading(true, loadingText);
-  request()
-    .then(() => {
-      modalInstance.close();
-    })
-    .catch((err) => console.error(err))
-    .finally(() => {
-      modalInstance.renderLoading(false);
-    });
-}
 
 const profileImageModal = new ModalWithForm({
   modalSelector: "#profile-image-modal",
