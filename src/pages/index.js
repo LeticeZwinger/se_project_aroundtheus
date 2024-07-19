@@ -101,6 +101,9 @@ const profileImageModal = new ModalWithForm({
 });
 
 const imagePreviewModal = new ModalWithImage("#image-preview-modal");
+const editFormValidator = new FormValidator(config, profileEditForm);
+const addFormValidator = new FormValidator(config, addImageForm);
+const profileImageFormValidator = new FormValidator(config, profileImageForm);
 
 function handleCardClick(link, name) {
   imagePreviewModal.open({ name, link });
@@ -128,16 +131,14 @@ const cardSection = new Section(
   ".cards__list",
 );
 
-const editFormValidator = new FormValidator(config, profileEditForm);
-const addFormValidator = new FormValidator(config, addImageForm);
-const profileImageFormValidator = new FormValidator(config, profileImageForm);
-
 profileImageFormValidator.enableValidation();
 
 function handleDeleteClick(cardToDelete) {
+  console.log("is this working?", cardToDelete);
   deleteConfirmationModal.open();
 
   deleteConfirmationModal.setSubmitHandler(() => {
+    console.log("whatabout this?");
     if (cardToDelete) {
       api
         .deleteCard(cardToDelete.id)
@@ -155,7 +156,7 @@ function handleLikeButton(card) {
   if (card.isLiked) {
     api
       .unlikeCard(card.id)
-      .then((cardData) => {
+      .then(() => {
         card.isLiked = false;
         card.updateLikes();
       })
@@ -177,7 +178,11 @@ profileImageFormValidator.enableValidation();
 
 profileEditButton.addEventListener("click", () => {
   const userData = userInfo.getUserInfo();
-  profileEditModal.setInputValues(userData);
+  profileEditModal.setInputValues({
+    title: userData.name,
+    description: userData.description,
+    avatar: userData.avatar,
+  });
   profileEditModal.open();
   editFormValidator.resetValidation();
 });
@@ -210,3 +215,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     cardSection.renderItems(cards);
   })
   .catch((err) => console.error(err));
+
+// profile name keep changing to undefined fixed
+// delete modal not deleting AGAAAIIN ò.ó
+// like button not liking :(
