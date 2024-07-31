@@ -20,22 +20,24 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            src="<%=require('./images/Avatar.png')%>"
-            alt="avatar"
-            class="profile__image"
-          />
+          <div class="profile__image-container">
+            <img src="" alt="avatar" class="profile__image" />
+            <button
+              aria-label="change profile image"
+              class="profile__image-button"
+              id="profile-image-button"
+              type="button"
+            ></button>
+          </div>
           <div class="profile__info">
-            <h1 class="profile__title" id="profile-title">Jacques Cousteau</h1>
+            <h1 class="profile__title" id="profile-title"></h1>
             <button
               aria-label="edit"
               class="profile__edit-button"
               id="profile-edit-button"
               type="button"
             ></button>
-            <p class="profile__description" id="profile-description">
-              Explorer
-            </p>
+            <p class="profile__description" id="profile-description"></p>
           </div>
           <button
             id="profile-add-button"
@@ -44,6 +46,7 @@
             type="button"
           ></button>
         </section>
+
         <section class="cards page__section">
           <ul class="cards__list"></ul>
         </section>
@@ -133,17 +136,70 @@
           </form>
         </fieldset>
       </div>
-      <div class="modal" id="image-preview-modal">
-        <div class="modal__content modal__preview">
+    </div>
+    <!-- change profile picture -->
+    <div class="modal" id="profile-image-modal">
+      <fieldset class="modal__fieldset">
+        <button
+          class="modal__close-button"
+          id="profile-image-close-button"
+        ></button>
+        <p class="modal__title">Change profile picture</p>
+        <form
+          class="modal__form"
+          id="profile-image-modal-form"
+          name="profile-image-modal-form"
+        >
+          <input
+            class="modal__form-input"
+            id="modal-input-link"
+            type="url"
+            name="link"
+            placeholder="URL link"
+            required
+          />
+          <span class="modal__error" id="modal-input-link-error"></span>
           <button
-            class="modal__close-button"
-            id="image-preview-close-button"
-          ></button>
-          <img src="" alt="" class="modal__preview-image modal__open" />
-          <p class="modal__preview-description"></p>
-        </div>
+            class="modal__button modal__button_disabled"
+            name="Save"
+            disabled
+          >
+            Save
+          </button>
+        </form>
+      </fieldset>
+    </div>
+
+    <!-- deleting button confirmation -->
+    <div class="modal" id="delete-confirmation-modal">
+      <fieldset class="modal__fieldset">
+        <button
+          class="modal__close-button"
+          id="delete-confirmation-close-button"
+        ></button>
+        <p class="modal__title">Are you sure?</p>
+        <form
+          class="modal__form"
+          id="delete-confirmation-modal-form"
+          name="delete-card-modal-form"
+        >
+          <button class="modal__button" id="confirm-delete" type="submit">
+            Yes
+          </button>
+        </form>
+      </fieldset>
+    </div>
+    <div class="modal" id="image-preview-modal">
+      <div class="modal__content modal__preview">
+        <button
+          class="modal__close-button"
+          id="image-preview-close-button"
+        ></button>
+        <img src="" alt="" class="modal__preview-image modal__open" />
+        <p class="modal__preview-description"></p>
       </div>
     </div>
+
     <template class="card__template" id="card-template">
       <li class="card">
         <img src="" alt="" class="card__image" />

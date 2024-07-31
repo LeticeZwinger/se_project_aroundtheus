@@ -22,6 +22,7 @@
   margin-right: 24px;
   background-position: center;
   position: relative;
+  border-radius: 50%;
 }
 
 .profile__title {
@@ -35,6 +36,30 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
+.profile__image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile__image-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 120px;
+  width: 120px;
+  background: rgba(0, 0, 0, 0.5) url(../images/edit-avatar.svg) center no-repeat;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+.profile__image-container:hover .profile__image-button {
+  opacity: 1;
+}
+
 .profile__edit-button {
   background: transparent url(../images/Edit-button.svg) center no-repeat;
   height: 24px;
