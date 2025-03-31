@@ -63,7 +63,7 @@ Alternatively, you may use Yarn if preferred.
   
 	Webpack
 	 •	webpack v5.76.0
-   •	webpack-cli v4.10.0
+         •      webpack-cli v4.10.0
 	 •	webpack-dev-server v4.9.3
   
 	PostCSS and Related Plugins
@@ -76,8 +76,9 @@ Alternatively, you may use Yarn if preferred.
 	 •	mini-css-extract-plugin v2.6.1
   
 	HTML Tooling
-   •	html-webpack-plugin v5.5.0
-	 •	Deployment Tool
+         •	html-webpack-plugin v5.5.0
+	 
+	Deployment Tool
 	 •	gh-pages v6.1.1 
 
 
