@@ -30,17 +30,17 @@ Posts are saved into TripleTen's database via implemented API calls:
 
 # Deploy
 
-Install Dependencies
-•	npm install
+	Install Dependencies
+	•	npm install
 
-Development Mode
-•	npm run dev
+	Development Mode
+	•	npm run dev
 
-Production Build
-•      npm run build
+	Production Build
+	•      npm run build
 
-Deploying
-•	npm run deploy
+	Deploying
+	•	npm run deploy
 	
 
 # System Requirements
