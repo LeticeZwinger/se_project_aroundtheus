@@ -3,7 +3,7 @@
 # Table of Contents
 
 # Description
-A small, profileless image board written in React. On the site people can post pictures from their favorite trips around the USA! Users can also delete anyone elses post and change the profile's name and description.
+A small, profileless image board written in JavaScript. On the site people can post pictures from their favorite trips around the USA! Users can also delete anyone elses post and change the profile's name and description.
 
 This is the project #3 of Triple10 web dev program. In this project we practice:
 
