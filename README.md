@@ -22,19 +22,11 @@ This is the project #3 of Triple10 web dev program. In this project we practice:
 # API
 
 Posts are saved into TripleTen's database via implemented API calls:
-
-  GET - getInitialCards()
-  
-  GET - getUserInfo()
-  
-  PATCH - updateUserInfo(data) -> data.name, data.about
-  
-  PATCH - updateProfileImage(data) -> data.profileImage
-  
-  POST - addCard(data) -> data.link, data.name
-  
-  DELETE - deleteCard(cardId)
-  
-  PUT - likeCard(cardId)
-  
-  DELETE - unlikeCard(cardId)
+*GET - getInitialCards()  
+*GET - getUserInfo()
+*PATCH - updateUserInfo(data) -> data.name, data.about 
+*PATCH - updateProfileImage(data) -> data.profileImage 
+*POST - addCard(data) -> data.link, data.name 
+*DELETE - deleteCard(cardId) 
+*PUT - likeCard(cardId) 
+*DELETE - unlikeCard(cardId)
