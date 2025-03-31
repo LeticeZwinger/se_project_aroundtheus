@@ -17,7 +17,7 @@ This is the project #3 of Triple10 web dev program. In this project we practice:
 
 # [Figma Design](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)
 
-![desktop-view](/images/desktop-view.png)
+![desktop-view](/src/images/desktop-view.png)
 
 # API
 
