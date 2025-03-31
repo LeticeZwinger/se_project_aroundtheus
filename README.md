@@ -29,18 +29,19 @@ Posts are saved into TripleTen's database via implemented API calls:
 * DELETE - unlikeCard(cardId)
 
 # Deploy
-* Install Dependencies
-npm install
 
-* Development Mode
-npm run dev
+	Install Dependencies
+	 •	npm install
 
-* Production Build
-npm run build
+        Development Mode
+	 •	npm run dev
 
-* Deploying
-npm run deploy
+	Production Build
+         •      npm run build
 
+        Deploying
+	 •	npm run deploy
+	
 
 # System Requirements
 * Node.js:
