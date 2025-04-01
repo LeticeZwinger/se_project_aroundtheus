@@ -58,29 +58,29 @@ Alternatively, you may use Yarn if preferred.
 # Plugins
 
 	Babel
-	 •	@babel/core v7.18.9
-	 •	@babel/preset-env v7.18.9
-	 •	babel-loader v8.2.5
+	• @babel/core v7.18.9 – The main package that compiles modern JavaScript
+	• @babel/preset-env v7.18.9 – Smart preset that lets you use the latest JS based on your target environments
+	• babel-loader v8.2.5 – Allows Webpack to process JavaScript files through Babel
   
 	Webpack
-	 •	webpack v5.76.0
-         •      webpack-cli v4.10.0
-	 •	webpack-dev-server v4.9.3
+	• webpack v5.76.0 – Bundles the project’s files and assets
+	• webpack-cli v4.10.0 – Command-line interface for running Webpack
+	• webpack-dev-server v4.9.3 – Runs a local server with live reload for development
   
 	PostCSS and Related Plugins
-	 •	postcss-loader v7.0.1
-	 •	autoprefixer v10.4.7
-	 •	cssnano v5.1.12
+	• postcss-loader v7.0.1 – Lets you use PostCSS with Webpack
+	• autoprefixer v10.4.7 – Adds vendor prefixes to CSS automatically
+	• cssnano v5.1.12 – Minifies CSS for better performance
   
 	CSS Tooling
-	 •	css-loader v6.7.1
-	 •	mini-css-extract-plugin v2.6.1
+	• css-loader v6.7.1 – Interprets @import and url() in CSS
+	• mini-css-extract-plugin v2.6.1 – Extracts CSS into separate files instead of inline in JS
   
 	HTML Tooling
-         •	html-webpack-plugin v5.5.0
+	• html-webpack-plugin v5.5.0 – Generates an HTML file and injects bundled scripts/styles
 	 
-	Deployment Tool
-	 •	gh-pages v6.1.1 
+	Deployment 
+	• gh-pages v6.1.1 – Automates the deployment process, making it easier to publish the project to GitHub Pages
 
 
 
